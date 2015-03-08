@@ -1,5 +1,4 @@
-﻿
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +9,25 @@ namespace middleterraincoatllist
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        /// <summary>
+        /// http://stackoverflow.com/questions/717628/asp-net-mvc-404-error-handling
+        /// </summary>
+        protected void Application_EndRequest()
+        {
+            if (Context.Response.StatusCode == 404)
+            {
+                Response.Clear();
+
+                var rd = new RouteData();
+                rd.DataTokens["area"] = "AreaName"; // In case controller is in another area
+                rd.Values["controller"] = "Errors";
+                rd.Values["action"] = "NotFound";
+
+                IController c = new ErrorsController();
+                c.Execute(new RequestContext(new HttpContextWrapper(Context), rd));
+            }
+        }
+
         public static void RegisterRoutes (RouteCollection routes)
         {
             routes.IgnoreRoute ("{resource}.axd/{*pathInfo}");
@@ -24,7 +42,7 @@ namespace middleterraincoatllist
 
         public static void RegisterGlobalFilters (GlobalFilterCollection filters)
         {
-            filters.Add (new HandleErrorAttribute ());
+            filters.Add (new HandleErrorAttribute());
         }
 
         protected void Application_Start ()
@@ -33,5 +51,6 @@ namespace middleterraincoatllist
             RegisterGlobalFilters (GlobalFilters.Filters);
             RegisterRoutes (RouteTable.Routes);
         }
+
     }
 }

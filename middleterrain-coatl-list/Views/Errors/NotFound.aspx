@@ -2,9 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
-	<title></title>
+	<title>404</title>
 </head>
 <body>
-	<h2>Welcome to ASP.NET MVC <%: ViewData["Version"] %> on <%: ViewData["Runtime"] %>!</h2>
+	<h1>404</h1>
+	<% =Request["aspxerrorpath"] %>
 </body>
 </html>
