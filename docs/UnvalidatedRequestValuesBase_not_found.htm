@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+<style type="text/css">
+body { background-color: #FFFFFF; font-size: .75em; font-family: Verdana, Helvetica, Sans-Serif; margin: 0; padding: 0;	color: #696969; }
+a:link { color: #000000; text-decoration: underline; }
+a:visited { color: #000000; }
+a:hover { color: #000000; text-decoration: none; }
+a:active { color: #12eb87; }
+p, ul {	margin-bottom: 20px; line-height: 1.6em; }
+pre { font-size: 1.2em;	margin-left: 20px; margin-top: 0px; }
+h1, h2, h3, h4, h5, h6 { font-size: 1.6em; color: #000;	font-family: Arial, Helvetica, sans-serif; }
+h1 { font-weight: bold;	margin-bottom: 0; margin-top: 0; padding-bottom: 0; }
+h2 { font-size: 1em; padding: 0 0 0px 0; color: #696969; font-weight: normal; margin-top: 0; margin-bottom: 20px; }
+h2.exceptionMessage { white-space: pre; }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1.1em; }
+h5, h6 { font-size: 1em; }
+#header { position: relative; margin-bottom: 0px; color: #000; padding: 0; background-color: #5c87b2; height: 38px; padding-left: 10px; }
+#header h1 { font-weight: bold;	padding: 5px 0;	margin: 0; color: #fff;	border: none; line-height: 2em;	font-family: Arial, Helvetica, sans-serif; font-size: 32px !important; }
+#header-image { float: left; padding: 3px; margin-left: 1px; margin-right: 1px; }
+#header-text { color: #fff; font-size: 1.4em; line-height: 38px; font-weight: bold; }
+#main {	padding: 20px 20px 15px 20px; background-color: #fff; _height: 1px; }
+#footer { color: #999; padding: 5px 0; text-align: left; line-height: normal; margin: 20px 0px 0px 0px;	font-size: .9em; border-top: solid 1px #5C87B2; }
+#footer-powered-by { float: right; }
+.details { font-family: monospace; border: solid 1px #e8eef4; white-space: pre; font-size: 1.2em; overflow: auto; padding: 6px; margin-top: 6px; background-color: #eeeeff; color: 555555 }
+.details-wrapped { white-space: normal }
+.details-header { margin-top: 1.5em }
+.details-header a { font-weight: bold; text-decoration: none }
+p { margin-bottom: 0.3em; margin-top: 0.1em }
+.sourceErrorLine { color: #770000; font-weight: bold; }
+</style>
+		<title></title>
+	</head>
+	<body>
+
+
+<div class="page">
+<div id="header">
+<div id="header-text">Application Exception</div>
+</div>
+<div id="main">
+  <h1>System.TypeLoadException</h1>
+  <h2 class="exceptionMessage">Could not load type 'System.Web.UnvalidatedRequestValuesBase' from assembly 'System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.</h2>
+  <p><strong>Description:</strong> HTTP 500.Error processing request.</p><p><strong>Details:</strong> Non-web exception. Exception origin (name of application or object): System.Web.Mvc.</p>
+<div><strong>Exception stack trace:</strong></div>
+<div class="details">  at System.Web.Mvc.FormValueProviderFactory.GetValueProvider (System.Web.Mvc.ControllerContext controllerContext) [0x00000] in &lt;filename unknown&gt;:0 
+  at System.Web.Mvc.ValueProviderFactoryCollection.GetValueProvider (System.Web.Mvc.ControllerContext controllerContext) [0x00000] in &lt;filename unknown&gt;:0 
+  at System.Web.Mvc.ControllerBase.get_ValueProvider () [0x00000] in &lt;filename unknown&gt;:0 
+  at System.Web.Mvc.ControllerActionInvoker.GetParameterValue (System.Web.Mvc.ControllerContext controllerContext, System.Web.Mvc.ParameterDescriptor parameterDescriptor) [0x00000] in &lt;filename unknown&gt;:0 
+  at System.Web.Mvc.ControllerActionInvoker.GetParameterValues (System.Web.Mvc.ControllerContext controllerContext, System.Web.Mvc.ActionDescriptor actionDescriptor) [0x00000] in &lt;filename unknown&gt;:0 
+  at System.Web.Mvc.Async.AsyncControllerActionInvoker+&lt;&gt;c__DisplayClass21.&lt;BeginInvokeAction&gt;b__19 (System.AsyncCallback asyncCallback, System.Object asyncState) [0x00000] in &lt;filename unknown&gt;:0 </div><div id="footer">
+  <div style="color:Black;"><strong>Version Information:</strong> <tt>3.10.0 ((detached/633e444 Sun Mar  8 22:29:19 MSK 2015)</tt>; ASP.NET Version: <tt>4.0.30319.17020</tt></div>
+  <div id="footer-powered-by">Powered by <a href="http://mono-project.com/">Mono</a></div>
+</div>
+</div>
+</div>
+<br />
+<br />
+<a href="http://stackoverflow.com/questions/21827225/xamarin-asp-mvc-4-action-with-parameters-not-working">http://stackoverflow.com/questions/21827225/xamarin-asp-mvc-4-action-with-parameters-not-working</a>
+	</body>
+</html>

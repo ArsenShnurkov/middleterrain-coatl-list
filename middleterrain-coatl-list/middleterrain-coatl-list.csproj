@@ -76,15 +76,21 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ErrorsController.cs" />
+    <Compile Include="Controllers\SnakesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Global.asax" />
-    <Content Include="packages.config" />
     <Content Include="Views\Errors\NotFound.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
+    <Content Include="Views\Snakes\Edit.aspx" />
+    <Content Include="Views\Snakes\Create.aspx" />
+    <Content Include="Views\Snakes\Details.aspx" />
+    <Content Include="Views\Snakes\Index.aspx" />
+    <Content Include="Views\Snakes\Delete.aspx" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
