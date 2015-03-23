@@ -12,5 +12,7 @@
   <ItemGroup>
     <None Include="UnvalidatedRequestValuesBase_not_found.htm" />
     <None Include="RouteCollection_get_AppendTrailingSlash_not_found.htm" />
+    <None Include="suspend_thread_suspend_took_which_is_more_than_the_allowed.htm" />
+    <None Include="address_already-in-use.html" />
   </ItemGroup>
 </Project>

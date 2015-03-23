@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Address already in use</title>
+	</head>
+	<body>
+<h1>Address already in use</h1>
+<pre><xmp>
+[2015-03-19 13:38:28.793372] Notice : Adding applications '/:.'...
+[2015-03-19 13:38:28.829435] Notice : Registering application:
+[2015-03-19 13:38:28.829481] Notice :     Host:          any
+[2015-03-19 13:38:28.829506] Notice :     Port:          any
+[2015-03-19 13:38:28.829534] Notice :     Virtual path:  /
+[2015-03-19 13:38:28.829562] Notice :     Physical path: /home/user/github.com/ArsenShnurkov/middleterrain-coatl-list/middleterrain-coatl-list/
+Loaded assembly: __MetadataTypes
+Loaded assembly: __MetadataTypes
+[2015-03-19 13:38:29.372432] Notice : xsp4
+[2015-03-19 13:38:29.392640] Notice : Listening on address: 127.0.0.1
+[2015-03-19 13:38:29.392677] Notice : Root directory: /home/user/github.com/ArsenShnurkov/middleterrain-coatl-list/middleterrain-coatl-list
+[2015-03-19 13:38:29.398840] Error  : Address already in use
+[2015-03-19 13:38:29.401327] Error  :   at System.Net.Sockets.Socket.Bind (System.Net.EndPoint local_end) [0x00051] in /var/calculate/tmp/portage/dev-lang/mono-3.12.0/work/mono-3.12.0/mcs/class/System/System.Net.Sockets/Socket.cs:1105 
+[2015-03-19 13:38:29.401357] Error  :   at Mono.WebServer.XSPWebSource.CreateSocket () [0x0001b] in /var/calculate/tmp/portage/dev-dotnet/xsp-2014.11/work/xsp-2014.11/src/Mono.WebServer.XSP/XSPWebSource.cs:97 
+[2015-03-19 13:38:29.401384] Error  :   at Mono.WebServer.ApplicationServer.Start (Boolean bgThread, Int32 backlog) [0x0007c] in /var/calculate/tmp/portage/dev-dotnet/xsp-2014.11/work/xsp-2014.11/src/Mono.WebServer/ApplicationServer.cs:294 
+[2015-03-19 13:38:29.401408] Error  :   at (wrapper remoting-invoke-with-check) Mono.WebServer.ApplicationServer:Start (bool,int)
+[2015-03-19 13:38:29.401433] Error  :   at Mono.WebServer.XSP.Server.DebugMain (System.String[] args, Boolean root, IApplicationHost ext_apphost, Boolean quiet) [0x002cd] in /var/calculate/tmp/portage/dev-dotnet/xsp-2014.11/work/xsp-2014.11/src/Mono.WebServer.XSP/main.cs:180
+</xmp></pre>
+	</body>
+</html>

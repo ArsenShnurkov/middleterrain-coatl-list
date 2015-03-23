@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+<style type="text/css">
+body { background-color: #FFFFFF; font-size: .75em; font-family: Verdana, Helvetica, Sans-Serif; margin: 0; padding: 0;	color: #696969; }
+a:link { color: #000000; text-decoration: underline; }
+a:visited { color: #000000; }
+a:hover { color: #000000; text-decoration: none; }
+a:active { color: #12eb87; }
+p, ul {	margin-bottom: 20px; line-height: 1.6em; }
+pre { font-size: 1.2em;	margin-left: 20px; margin-top: 0px; }
+h1, h2, h3, h4, h5, h6 { font-size: 1.6em; color: #000;	font-family: Arial, Helvetica, sans-serif; }
+h1 { font-weight: bold;	margin-bottom: 0; margin-top: 0; padding-bottom: 0; }
+h2 { font-size: 1em; padding: 0 0 0px 0; color: #696969; font-weight: normal; margin-top: 0; margin-bottom: 20px; }
+h2.exceptionMessage { white-space: pre; }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1.1em; }
+h5, h6 { font-size: 1em; }
+#header { position: relative; margin-bottom: 0px; color: #000; padding: 0; background-color: #5c87b2; height: 38px; padding-left: 10px; }
+#header h1 { font-weight: bold;	padding: 5px 0;	margin: 0; color: #fff;	border: none; line-height: 2em;	font-family: Arial, Helvetica, sans-serif; font-size: 32px !important; }
+#header-image { float: left; padding: 3px; margin-left: 1px; margin-right: 1px; }
+#header-text { color: #fff; font-size: 1.4em; line-height: 38px; font-weight: bold; }
+#main {	padding: 20px 20px 15px 20px; background-color: #fff; _height: 1px; }
+#footer { color: #999; padding: 5px 0; text-align: left; line-height: normal; margin: 20px 0px 0px 0px;	font-size: .9em; border-top: solid 1px #5C87B2; }
+#footer-powered-by { float: right; }
+.details { font-family: monospace; border: solid 1px #e8eef4; white-space: pre; font-size: 1.2em; overflow: auto; padding: 6px; margin-top: 6px; background-color: #eeeeff; color: 555555 }
+.details-wrapped { white-space: normal }
+.details-header { margin-top: 1.5em }
+.details-header a { font-weight: bold; text-decoration: none }
+p { margin-bottom: 0.3em; margin-top: 0.1em }
+.sourceErrorLine { color: #770000; font-weight: bold; }
+</style>
+		<title></title>
+	</head>
+	<body>
+
+<pre><xmp>
+	suspend_thread suspend took 1000 ms, which is more than the allowed 1000 ms
+Stacktrace:
+
+
+Native stacktrace:
+
+        /usr/bin/mono(mono_handle_native_sigsegv+0xe0) [0x4b455f]
+        /usr/bin/mono() [0x510740]
+        /lib64/libpthread.so.0(+0xf8a0) [0x7f6819b438a0]
+        /lib64/libc.so.6(gsignal+0x37) [0x7f68197c4337]
+        /lib64/libc.so.6(abort+0x148) [0x7f68197c5718]
+        /usr/bin/mono() [0x63378d]
+        /usr/bin/mono() [0x63398a]
+        /usr/bin/mono() [0x633a1d]
+        /usr/bin/mono(mono_threads_wait_pending_operations+0x126) [0x62c6e0]
+        /usr/bin/mono(mono_thread_info_safe_suspend_sync+0xb5) [0x62cd00]
+        /usr/bin/mono() [0x4cdf10]
+        /usr/bin/mono(mono_g_hash_table_foreach+0x9d) [0x5b6367]
+        /usr/bin/mono() [0x4cdaeb]
+        /usr/bin/mono() [0x4d6435]
+        /usr/bin/mono() [0x4d67b2]
+        /usr/bin/mono() [0x4d6995]
+        /usr/bin/mono(mono_profiler_runtime_initialized+0x1f) [0x58b72d]
+        /usr/bin/mono() [0x42f943]
+        /usr/bin/mono(mono_main+0x1492) [0x48cce3]
+        /usr/bin/mono() [0x42ae16]
+        /lib64/libc.so.6(__libc_start_main+0xf5) [0x7f68197b0b15]
+        /usr/bin/mono() [0x42aac9]
+
+Debug info from gdb:
+
+Mono support loaded.
+[New LWP 26735]
+[New LWP 26734]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+0x00007f6819b43479 in waitpid () from /lib64/libpthread.so.0
+  Id   Target Id         Frame 
+  3    Thread 0x7f6816e9d700 (LWP 26734) "Finalizer" 0x00007f6819b42000 in sem_wait () from /lib64/libpthread.so.0
+  2    Thread 0x7f6816c9c700 (LWP 26735) "mono" 0x00007f6819b427ac in __lll_lock_wait () from /lib64/libpthread.so.0
+* 1    Thread 0x7f681a638780 (LWP 26732) "mono" 0x00007f6819b43479 in waitpid () from /lib64/libpthread.so.0
+
+Thread 3 (Thread 0x7f6816e9d700 (LWP 26734)):
+#0  0x00007f6819b42000 in sem_wait () from /lib64/libpthread.so.0
+#1  0x0000000000628649 in mono_sem_wait (sem=sem@entry=0x955d80 <finalizer_sem>, alertable=alertable@entry=1) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/utils/mono-semaphore.c:101
+#2  0x00000000005b2ba5 in finalizer_thread (unused=unused@entry=0x0) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/metadata/gc.c:1072
+#3  0x0000000000595972 in start_wrapper_internal (data=<optimized out>) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/metadata/threads.c:664
+#4  start_wrapper (data=<optimized out>) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/metadata/threads.c:711
+#5  0x000000000062dce2 in inner_start_thread (arg=0x7fff7c6b18e0) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/utils/mono-threads-posix.c:93
+#6  0x00007f6819b3c0b4 in start_thread () from /lib64/libpthread.so.0
+#7  0x00007f681987523d in clone () from /lib64/libc.so.6
+
+Thread 2 (Thread 0x7f6816c9c700 (LWP 26735)):
+#0  0x00007f6819b427ac in __lll_lock_wait () from /lib64/libpthread.so.0
+#1  0x00007f6819b3e4b4 in _L_lock_567 () from /lib64/libpthread.so.0
+#2  0x00007f6819b3e316 in pthread_mutex_lock () from /lib64/libpthread.so.0
+#3  0x0000000000554836 in mono_loader_lock () at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/metadata/loader.c:2458
+#4  0x00000000004cc76d in get_id (domain=0x27668d0, type=type@entry=ID_DOMAIN, val=0x27668d0) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/debugger-agent.c:2254
+#5  0x00000000004d96b7 in buffer_add_ptr_id (val=<optimized out>, type=ID_DOMAIN, domain=<optimized out>, buf=0x7f6816c9bd10) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/debugger-agent.c:2326
+#6  buffer_add_domainid (domain=<optimized out>, buf=0x7f6816c9bd10) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/debugger-agent.c:2454
+#7  domain_commands (command=command@entry=1, p=p@entry=0x0, end=end@entry=0x0, buf=buf@entry=0x7f6816c9bd10) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/debugger-agent.c:7561
+#8  0x00000000004dd27a in debugger_thread (arg=<optimized out>) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/debugger-agent.c:9684
+#9  0x000000000062dce2 in inner_start_thread (arg=0x7fff7c6b17a0) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/utils/mono-threads-posix.c:93
+#10 0x00007f6819b3c0b4 in start_thread () from /lib64/libpthread.so.0
+#11 0x00007f681987523d in clone () from /lib64/libc.so.6
+
+Thread 1 (Thread 0x7f681a638780 (LWP 26732)):
+#0  0x00007f6819b43479 in waitpid () from /lib64/libpthread.so.0
+#1  0x00000000004b4611 in mono_handle_native_sigsegv (signal=signal@entry=6, ctx=ctx@entry=0x7fff7c6b1080, info=info@entry=0x7fff7c6b11b0) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/mini-exceptions.c:2346
+#2  0x0000000000510740 in sigabrt_signal_handler (_dummy=6, _info=0x7fff7c6b11b0, context=0x7fff7c6b1080) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/mini-posix.c:208
+#3  <signal handler called>
+#4  0x00007f68197c4337 in raise () from /lib64/libc.so.6
+#5  0x00007f68197c5718 in abort () from /lib64/libc.so.6
+#6  0x000000000063378d in monoeg_log_default_handler (log_domain=<optimized out>, log_level=G_LOG_LEVEL_ERROR, message=<optimized out>, unused_data=<optimized out>) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/eglib/src/goutput.c:233
+#7  0x000000000063398a in monoeg_g_logv (log_domain=0x0, log_level=G_LOG_LEVEL_ERROR, format=<optimized out>, args=args@entry=0x7fff7c6b16a8) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/eglib/src/goutput.c:113
+#8  0x0000000000633a1d in monoeg_g_log (log_domain=log_domain@entry=0x0, log_level=log_level@entry=G_LOG_LEVEL_ERROR, format=format@entry=0x6f5260 "suspend_thread suspend took %d ms, which is more than the allowed %d ms") at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/eglib/src/goutput.c:123
+#9  0x000000000062c6e0 in mono_threads_wait_pending_operations () at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/utils/mono-threads.c:152
+#10 0x000000000062cd00 in mono_thread_info_suspend_sync (error_condition=<synthetic pointer>, interrupt_kernel=0, tid=140085037750016) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/utils/mono-threads.c:599
+#11 mono_thread_info_safe_suspend_sync (id=140085037750016, interrupt_kernel=interrupt_kernel@entry=0) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/utils/mono-threads.c:837
+#12 0x00000000004cdf10 in notify_thread (key=0x7f681a5c0280, value=0x7f68100014c0, user_data=<optimized out>) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/debugger-agent.c:2753
+#13 0x00000000005b6367 in mono_g_hash_table_foreach (hash=0x2747940, func=func@entry=0x4cde89 <notify_thread>, user_data=user_data@entry=0x0) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/metadata/mono-hash.c:292
+#14 0x00000000004cdaeb in suspend_vm () at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/debugger-agent.c:2851
+#15 0x00000000004d6435 in process_event (event=event@entry=EVENT_KIND_VM_START, arg=arg@entry=0x7f681a5bc140, il_offset=il_offset@entry=0, ctx=ctx@entry=0x0, events=events@entry=0x27da830, suspend_policy=2) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/debugger-agent.c:3830
+#16 0x00000000004d67b2 in process_profiler_event (event=event@entry=EVENT_KIND_VM_START, arg=0x7f681a5bc140) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/debugger-agent.c:3885
+#17 0x00000000004d6995 in runtime_initialized (prof=<optimized out>) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/debugger-agent.c:3891
+#18 0x000000000058b72d in mono_profiler_runtime_initialized () at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/metadata/profiler.c:889
+#19 0x000000000042f943 in mini_init (filename=0x7fff7c6b3235 "/root/test12/test12/bin/Debug/test12.exe", runtime_version=runtime_version@entry=0x0) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/mini-runtime.c:3104
+#20 0x000000000048cce3 in mono_main (argc=argc@entry=4, argv=argv@entry=0x7fff7c6b1d28) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/driver.c:1921
+#21 0x000000000042ae16 in mono_main_with_options (argv=0x7fff7c6b1d28, argc=4) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/main.c:91
+#22 main (argc=<optimized out>, argv=<optimized out>) at /var/calculate/tmp/portage/dev-lang/mono-9999/work/mono-9999/mono/mini/main.c:122
+
+=================================================================
+Got a SIGABRT while executing native code. This usually indicates
+a fatal error in the mono runtime or one of the native libraries 
+used by your application.
+=================================================================
+
+bash: line 1: 26732 Аварийный останов         (core dumped) '/usr/bin/mono' --debug --debugger-agent=transport=dt_socket,address=127.0.0.1:49732 "/root/test12/test12/bin/Debug/test12.exe"
+
+Press any key to continue...
+
+
+
+    class MainClass
+    {
+    	public static void Main (string[] args)
+    	{
+    		System.Console.WriteLine ("Hello");
+    		System.Console.WriteLine ("World!");
+    	}
+    }
+</xmp></pre>
+
+		</body>
+</html>
