@@ -6,5 +6,6 @@
 </head>
 <body>
 	<h2>Welcome to ASP.NET MVC <%: ViewData["Version"] %> on <%: ViewData["Runtime"] %>!</h2>
+	<a href="/Snakes/Create">Create a new snake</a>
 </body>
 </html>
