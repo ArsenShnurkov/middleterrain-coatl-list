@@ -14,5 +14,8 @@
     <None Include="RouteCollection_get_AppendTrailingSlash_not_found.htm" />
     <None Include="suspend_thread_suspend_took_which_is_more_than_the_allowed.htm" />
     <None Include="address_already-in-use.html" />
+    <None Include="SharpHsqlReader_get_Item_is not implemented.html" />
+    <None Include="FailedToLoadProvider.html" />
+    <None Include="TableNotFound.txt" />
   </ItemGroup>
 </Project>

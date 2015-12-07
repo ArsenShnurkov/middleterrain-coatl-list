@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>S0002 Table not found</title>
+	</head>
+	<body>
+System.Data.Hsql.SharpHsqlException: S0002 Table not found: TABLE_TEST1 in statement [INSERT INTO TABLE_TEST1 (MyId, name, url) VALUES (@1, @'google', @'www.gooogle.com')]
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at System.Data.Hsql.SharpHsqlConnection.CheckForError (SharpHsql.Result _result) in /var/calculate/remote/distfiles/egit-src/SharpHSQL.git/src/SharpHSQL/Provider_AdoNet/SharpHsqlConnection.cs:line 478
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at System.Data.Hsql.SharpHsqlConnection.Execute (System.String sqlBatch) in /var/calculate/remote/distfiles/egit-src/SharpHSQL.git/src/SharpHSQL/Provider_AdoNet/SharpHsqlConnection.cs:line 466
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at (wrapper remoting-invoke-with-check) System.Data.Hsql.SharpHsqlConnection:Execute (string)
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at System.Data.Hsql.SharpHsqlCommand.ExecuteNonQuery () in /var/calculate/remote/distfiles/egit-src/SharpHSQL.git/src/SharpHSQL/Provider_AdoNet/SharpHsqlCommand.cs:line 313
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at MainClass.InsertRecord (IDbConnection conn, IDbTransaction tran, record r) in /var/calculate/remote/distfiles/egit-src/middleterrain-coatl-list.git/db_code_test/Program.cs:line 126
+<br />
+<br />
+System.Data.Hsql.SharpHsqlException: S1000 Variable name not found.: 1 in statement [INSERT INTO TABLE_TEST1 (MyId, name, url) VALUES (@1, @'google', @'www.gooogle.com')]
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at System.Data.Hsql.SharpHsqlConnection.CheckForError (SharpHsql.Result _result) in /var/calculate/remote/distfiles/egit-src/SharpHSQL.git/src/SharpHSQL/Provider_AdoNet/SharpHsqlConnection.cs:line 478
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at System.Data.Hsql.SharpHsqlConnection.Execute (System.String sqlBatch) in /var/calculate/remote/distfiles/egit-src/SharpHSQL.git/src/SharpHSQL/Provider_AdoNet/SharpHsqlConnection.cs:line 466
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at (wrapper remoting-invoke-with-check) System.Data.Hsql.SharpHsqlConnection:Execute (string)
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at System.Data.Hsql.SharpHsqlCommand.ExecuteNonQuery () in /var/calculate/remote/distfiles/egit-src/SharpHSQL.git/src/SharpHSQL/Provider_AdoNet/SharpHsqlCommand.cs:line 313
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at MainClass.InsertRecord (IDbConnection conn, IDbTransaction tran, record r) in /var/calculate/remote/distfiles/egit-src/middleterrain-coatl-list.git/db_code_test/Program.cs:line 130
+<br />
+<br />
+MS SQL uses the '@' symbol as arguments
+<br />
+PostgreSQL uses the '$'
+<br />
+MS Access uses the '?'
+<br />
+<br />
+System.Data.Hsql.SharpHsqlException: SH043 Field of table is expected.: , in statement [INSERT INTO TABLE_TEST1 (MyId, name, url) VALUES (1, 'google', 'www.gooogle.com')]
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at System.Data.Hsql.SharpHsqlConnection.CheckForError (SharpHsql.Result _result) in /var/calculate/remote/distfiles/egit-src/SharpHSQL.git/src/SharpHSQL/Provider_AdoNet/SharpHsqlConnection.cs:line 478
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at System.Data.Hsql.SharpHsqlConnection.Execute (System.String sqlBatch) in /var/calculate/remote/distfiles/egit-src/SharpHSQL.git/src/SharpHSQL/Provider_AdoNet/SharpHsqlConnection.cs:line 466
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at (wrapper remoting-invoke-with-check) System.Data.Hsql.SharpHsqlConnection:Execute (string)
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at System.Data.Hsql.SharpHsqlCommand.ExecuteNonQuery () in /var/calculate/remote/distfiles/egit-src/SharpHSQL.git/src/SharpHSQL/Provider_AdoNet/SharpHsqlCommand.cs:line 313
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;at MainClass.InsertRecord (IDbConnection conn, IDbTransaction tran, record r) in /var/calculate/remote/distfiles/egit-src/middleterrain-coatl-list.git/db_code_test/Program.cs:line 130
+
+		</body>
+</html>

@@ -63,7 +63,8 @@ namespace middleterraincoatllist.Controllers
 						while (reader.Read ())
 						{
 							tableCount++;
-							Trace.WriteLine (reader [0].ToString ());
+							var tableName = reader [0].ToString ();
+							Trace.WriteLine (tableName);
 						}
 					}
 					if (tableCount == 0)
@@ -78,8 +79,10 @@ namespace middleterraincoatllist.Controllers
                 string tbDescription = Convert.ToString(collection["tbDescription"]);
                 return RedirectToAction ("Index");
             }
-            catch
+			catch (Exception ex)
             {
+				var output = ex.ToString ();
+				Trace.WriteLine (output);
                 return View ();
             }
         }

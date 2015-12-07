@@ -58,9 +58,6 @@
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="SharpHsql">
-      <HintPath>..\packages\SharpHSQL.1.0.3\lib\net40\SharpHSQL.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
@@ -99,4 +96,10 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharpHSQL.git\src\SharpHSQL\SharpHsql.csproj">
+      <Project>{B98F7374-FF00-4BB7-93EC-39763A76BFFF}</Project>
+      <Name>SharpHsql</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
