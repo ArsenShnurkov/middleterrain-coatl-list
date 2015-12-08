@@ -9,7 +9,9 @@ class MainClass
 {
 	public static void Main (string[] args)
 	{
+		if ("///".StartsWith ("/")) {
 		F1 ();
+		}
 	}
 
 	public struct record

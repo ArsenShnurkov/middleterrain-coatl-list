@@ -1,5 +1,7 @@
-middleterrain-coatl-list.Tests/bin/*
-middleterrain-coatl-list.Tests/obj/*
-middleterrain-coatl-list/bin/*
-middleterrain-coatl-list/obj/*
-middleterrain-coatl-list.userprefs
+**/bin/*
+**/obj/*
+*.userprefs
+middleterrain-coatl-list/test.cfg
+middleterrain-coatl-list/test.data
+middleterrain-coatl-list/test.backup
+middleterrain-coatl-list/test.log
