@@ -6,14 +6,15 @@
 </head>
 <body>
 	<div>
-	<form runat="server">
-	<asp:TextBox id="tbName" Text="Name" runat="server" />
+	<% var url=Response.ApplyAppPathModifier("/Snakes/Create?test=3"); %>
+	<form action="<% =url %>" method="POST" >
+	<input type="text" id="tbName" Text="Name" />
 	<br />
-	<asp:TextBox id="tbUrl" Text="URL" runat="server" />
+	<input type="text" id="tbUrl" Text="URL" />
 	<br />
-	<asp:TextBox id="tbDescription" Text="Description" runat="server" TextMode="multiline" />
+	<input type="text" id="tbDescription" Text="Description" TextMode="multiline" />
 	<br />
-	<asp:Button id="id" text="Create" runat="server" />
+	<input type="submit" id="id" text="Create" />
 	</form>
 	</div>
 </body>

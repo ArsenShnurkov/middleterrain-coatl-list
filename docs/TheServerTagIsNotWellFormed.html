@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>The server tag is not well formed.</title>
+	</head>
+	<body>
+<div class="page">
+<div id="header">
+<div id="header-text">Application Exception</div>
+</div>
+<div id="main">
+  <h1>System.Web.Compilation.ParseException</h1>
+  <h2 class="exceptionMessage">The server tag is not well formed.</h2>
+  <p><strong>Description:</strong> Error parsing a resource required to service this request. Review your source file and modify it to fix this error.</p><p><strong>Details:</strong> The server tag is not well formed.</p>
+<p><strong>Error origin: </strong>Parser</p>
+<p><strong>Error source file: </strong>/var/calculate/remote/distfiles/egit-src/middleterrain-coatl-list.git/middleterrain-coatl-list/Views/Snakes/Create.aspx</p>
+<div><strong>Exception stack trace:</strong></div>
+<div class="details">  at System.Web.Compilation.AspGenerator.ParseError (ILocation location, System.String message) [0x00000] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/AspGenerator.cs:750 
+  at System.Web.Compilation.AspParser.OnError (System.String msg) [0x0001c] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/AspParser.cs:643 
+  at System.Web.Compilation.AspParser.GetTag (System.Web.Compilation.TagType&amp; tagtype, System.String&amp; id, System.Web.Compilation.TagAttributes&amp; attributes) [0x001bc] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/AspParser.cs:410 
+  at System.Web.Compilation.AspParser.Parse () [0x000e3] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/AspParser.cs:267 
+  at System.Web.Compilation.AspGenerator.Parse (System.IO.TextReader reader, System.String filename, Boolean doInitParser) [0x00029] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/AspGenerator.cs:615 
+  at System.Web.Compilation.GenericBuildProvider`1[TParser].Parse () [0x00032] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/GenericBuildProvider.cs:87 
+  at System.Web.Compilation.GenericBuildProvider`1[TParser].GenerateCode () [0x00000] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/GenericBuildProvider.cs:102 
+  at System.Web.Compilation.GenericBuildProvider`1[TParser].GenerateCode (System.Web.Compilation.AssemblyBuilder assemblyBuilder) [0x0000b] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/GenericBuildProvider.cs:121 
+  at System.Web.Compilation.BuildManager.GenerateAssembly (System.Web.Compilation.AssemblyBuilder abuilder, System.Web.Compilation.BuildProviderGroup group, System.Web.VirtualPath vp, Boolean debug) [0x00081] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/BuildManager.cs:778 </div>
+<div style="margin-top: 1.5em" class="showHide"><strong>Error source context:</strong></div>
+<p><strong>Error lines:</strong> 9, 9</p>
+<div class="details">7: &lt;body&gt;
+8: 	&lt;div&gt;
+<span class="sourceErrorLine">9: 	&lt;form runat="server" action="&lt;%= Response.ApplyAppPathModifier("/Snakes/Create") %&gt;)"&gt;
+</span>10: 	&lt;asp:TextBox id="tbName" Text="Name" runat="server" /&gt;
+11: 	&lt;br /&gt;
+</div>
+<div id="footer">
+  <div style="color:Black;"><strong>Version Information:</strong> <tt>4.2.1 (Stable 4.2.1.124/39edf24 Wed Dec  9 22:00:35 MSK 2015)</tt>; ASP.NET Version: <tt>4.0.30319.17020</tt></div>
+  <div id="footer-powered-by">Powered by <a href="http://mono-project.com/">Mono</a></div>
+</div>
+</div>
+</div>
+<br />
+<br />
+Asp.Net web form page framework supports the following directives
+<br />
+1. @Page
+<br />
+2. @Master
+<br />
+3. @Control
+<br />
+4. @Register
+<br />
+5. @Reference
+<br />
+6. @PreviousPageType
+<br />
+7. @OutputCache
+<br />
+8. @Import
+<br />
+9. @Implements
+<br />
+10. @Assembly
+<br />
+11. @MasterType
+<br />
+<br />
+Control 'tbName' of type 'TextBox' must be placed inside a form tag with runat=server.
+
+<br />
+<br />
+<a href="http://stackoverflow.com/questions/34189993/why-mono-refuses-to-parse-web-pages-with-applyapppathmodifier-in-server-controls">http://stackoverflow.com/questions/34189993/why-mono-refuses-to-parse-web-pages-with-applyapppathmodifier-in-server-controls</a>
+
+		</body>
+</html>

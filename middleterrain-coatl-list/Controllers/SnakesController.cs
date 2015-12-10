@@ -77,7 +77,8 @@ namespace middleterraincoatllist.Controllers
                 string tbName = Convert.ToString(collection["tbName"]);
                 string tbUrl = Convert.ToString(collection["tbUrl"]);
                 string tbDescription = Convert.ToString(collection["tbDescription"]);
-                return RedirectToAction ("Index");
+				return RedirectToAction ("Index");
+				// it will be good to redirect to Details(id) instead of index
             }
 			catch (Exception ex)
             {

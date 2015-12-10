@@ -16,7 +16,8 @@
     <None Include="address_already-in-use.html" />
     <None Include="SharpHsqlReader_get_Item_is not implemented.html" />
     <None Include="FailedToLoadProvider.html" />
-    <None Include="TableNotFound.txt" />
     <None Include="IndexOutOfRange.html" />
+    <None Include="TheServerTagIsNotWellFormed.html" />
+    <None Include="TableNotFound.html" />
   </ItemGroup>
 </Project>

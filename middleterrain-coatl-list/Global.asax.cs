@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -51,6 +51,12 @@ namespace middleterraincoatllist
             RegisterGlobalFilters (GlobalFilters.Filters);
             RegisterRoutes (RouteTable.Routes);
         }
-
+/*
+		protected void Session_Start(Object sender, EventArgs e) 
+		{
+			// don't remove this "empty" function, actually it's exisetence creates a session object
+			Session["_my_variable"] = "content";
+		}
+*/		
     }
 }
