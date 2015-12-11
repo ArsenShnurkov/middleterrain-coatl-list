@@ -57,6 +57,6 @@ namespace middleterraincoatllist
 			// don't remove this "empty" function, actually it's exisetence creates a session object
 			Session["_my_variable"] = "content";
 		}
-*/		
+*/	
     }
 }

@@ -73,6 +73,11 @@
     </Compile>
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\SnakesController.cs" />
+    <Compile Include="SessionId.cs" />
+    <Compile Include="SessionUtils.cs" />
+    <Compile Include="MySessionIDManager1.cs" />
+    <Compile Include="MySessionIDManager2.cs" />
+    <Compile Include="MySessionIDManager0.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />

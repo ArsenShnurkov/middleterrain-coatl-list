@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage" %>
+<%@ Import namespace="middleterraincoatllist"  %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -6,7 +7,7 @@
 </head>
 <body>
 	<div>
-	<% var url=Response.ApplyAppPathModifier("/Snakes/Create?test=3"); %>
+	<% var url= Request.ApplyUrlModifier("/Snakes/Create"); %>
 	<form action="<% =url %>" method="POST" >
 	<input type="text" id="tbName" Text="Name" />
 	<br />
