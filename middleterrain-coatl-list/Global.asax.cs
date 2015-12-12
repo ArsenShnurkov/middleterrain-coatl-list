@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using middleterraincoatllist.Controllers;
 
 namespace middleterraincoatllist
 {
@@ -50,6 +51,7 @@ namespace middleterraincoatllist
             AreaRegistration.RegisterAllAreas ();
             RegisterGlobalFilters (GlobalFilters.Filters);
             RegisterRoutes (RouteTable.Routes);
+			SnakesController.F1 ();
         }
 /*
 		protected void Session_Start(Object sender, EventArgs e) 

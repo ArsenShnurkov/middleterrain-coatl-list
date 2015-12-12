@@ -78,6 +78,8 @@
     <Compile Include="MySessionIDManager1.cs" />
     <Compile Include="MySessionIDManager2.cs" />
     <Compile Include="MySessionIDManager0.cs" />
+    <Compile Include="Controllers\SnakesController.Helpers.cs" />
+    <Compile Include="Models\CompanyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -89,9 +91,9 @@
     <Content Include="Views\Snakes\Edit.aspx" />
     <Content Include="Views\Snakes\Create.aspx" />
     <Content Include="Views\Snakes\Details.aspx" />
-    <Content Include="Views\Snakes\Index.aspx" />
     <Content Include="Views\Snakes\Delete.aspx" />
     <Content Include="packages.config" />
+    <Content Include="Views\Snakes\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

@@ -9,10 +9,16 @@ using System.Diagnostics;
 
 namespace middleterraincoatllist.Controllers
 {
-    public class SnakesController : Controller
+    public partial class SnakesController : Controller
     {
+
         public ActionResult Index()
         {
+			using (IDbConnection conn = GetConnection ())
+			{
+				var list = ReadRecordInterval (conn, null, "MyId", "ASC", 0, 10);
+				this.ViewData ["Products"] = list;
+			}
             return View ();
         }
 
@@ -31,40 +37,21 @@ namespace middleterraincoatllist.Controllers
         {
             try
             {
-				string providerName = System.Configuration.ConfigurationManager.ConnectionStrings["ConnStr"].ProviderName; 
-
-				string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString; 
-
-
-				DbProviderFactory factory = null;
-				try
+				using (IDbConnection conn = GetConnection ())
 				{
-					factory = DbProviderFactories.GetFactory (providerName);
-				}
-				catch (System.Configuration.ConfigurationErrorsException ex)
-				{
-					Trace.WriteLine (ex.ToString ());
-					DataTable table_DbProviderFactories = DbProviderFactories.GetFactoryClasses ();
-					foreach (DataRow row in table_DbProviderFactories.Rows)
-					{
-						Trace.WriteLine (row ["InvariantName"].ToString());
-					}
-				}
-				using (DbConnection conn = factory.CreateConnection ())
-				{
-					conn.ConnectionString = connectionString;
-					conn.Open ();
-					DbCommand cmd = conn.CreateCommand ();
-					cmd.CommandText = "SHOW TABLES;";
-					cmd.CommandType = CommandType.Text;
 					int tableCount = 0;
-					using (DbDataReader reader = cmd.ExecuteReader ())
+					using (IDbCommand cmd = conn.CreateCommand ())
 					{
-						while (reader.Read ())
+						cmd.CommandText = "SHOW TABLES;";
+						cmd.CommandType = CommandType.Text;
+						using (IDataReader reader = cmd.ExecuteReader ())
 						{
-							tableCount++;
-							var tableName = reader [0].ToString ();
-							Trace.WriteLine (tableName);
+							while (reader.Read ())
+							{
+								tableCount++;
+								var tableName = reader [0].ToString ();
+								Trace.WriteLine (tableName);
+							}
 						}
 					}
 					if (tableCount == 0)

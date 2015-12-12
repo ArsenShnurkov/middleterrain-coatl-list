@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Could not locate Razor Host Factory type</title>
+	</head>
+	<body>
+
+
+
+<div class="page">
+<div id="header">
+<div id="header-text">Application Exception</div>
+</div>
+<div id="main">
+  <h1>System.InvalidOperationException</h1>
+  <h2 class="exceptionMessage">Could not locate Razor Host Factory type: System.Web.Mvc.MvcWebRazorHostFactory, System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35</h2>
+  <p><strong>Description:</strong> HTTP 500.Error processing request.</p><p><strong>Details:</strong> Non-web exception. Exception origin (name of application or object): System.Web.WebPages.Razor.</p>
+<div><strong>Exception stack trace:</strong></div>
+<div class="details">  at System.Web.WebPages.Razor.WebRazorHostFactory.CreateFactory (System.String typeName) [0x00030] in &lt;filename unknown&gt;:0 
+  at System.Collections.Concurrent.ConcurrentDictionary`2[TKey,TValue].GetOrAdd (System.Collections.Concurrent.TKey key, System.Func`2 valueFactory) [0x00037] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/external/referencesource/mscorlib/system/collections/Concurrent/ConcurrentDictionary.cs:1033 
+  at System.Web.WebPages.Razor.WebRazorHostFactory.CreateHostFromConfigCore (System.Web.WebPages.Razor.Configuration.RazorWebSectionGroup config, System.String virtualPath, System.String physicalPath) [0x0004f] in &lt;filename unknown&gt;:0 
+  at System.Web.WebPages.Razor.WebRazorHostFactory.CreateHostFromConfig (System.String virtualPath, System.String physicalPath) [0x00038] in &lt;filename unknown&gt;:0 
+  at System.Web.WebPages.Razor.WebRazorHostFactory.CreateHostFromConfig (System.String virtualPath) [0x00000] in &lt;filename unknown&gt;:0 
+  at System.Web.WebPages.Razor.RazorBuildProvider.GetHostFromConfig () [0x00006] in &lt;filename unknown&gt;:0 
+  at System.Web.WebPages.Razor.RazorBuildProvider.CreateHost () [0x00000] in &lt;filename unknown&gt;:0 
+  at System.Web.WebPages.Razor.RazorBuildProvider.get_Host () [0x00008] in &lt;filename unknown&gt;:0 
+  at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode () [0x00008] in &lt;filename unknown&gt;:0 
+  at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType () [0x00000] in &lt;filename unknown&gt;:0 
+  at System.Web.Compilation.BuildManagerDirectoryBuilder.GetBuildProviderCodeDomType (System.Web.Compilation.BuildProvider bp) [0x00000] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/BuildManagerDirectoryBuilder.cs:224 
+  at System.Web.Compilation.BuildManagerDirectoryBuilder.AssignToGroup (System.Web.Compilation.BuildProvider buildProvider, System.Collections.Generic.List`1 groups) [0x0007a] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/BuildManagerDirectoryBuilder.cs:261 
+  at System.Web.Compilation.BuildManagerDirectoryBuilder.Build (Boolean single) [0x00151] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/BuildManagerDirectoryBuilder.cs:120 
+  at System.Web.Compilation.BuildManager.BuildInner (System.Web.VirtualPath vp, Boolean debug) [0x00011] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/BuildManager.cs:415 
+  at System.Web.Compilation.BuildManager.Build (System.Web.VirtualPath vp) [0x00056] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/BuildManager.cs:396 
+  at System.Web.Compilation.BuildManager.GetCompiledType (System.Web.VirtualPath virtualPath) [0x00040] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/BuildManager.cs:989 
+  at System.Web.Compilation.BuildManager.GetCompiledType (System.String virtualPath) [0x00000] in /var/tmp/portage/dev-lang/mono-4.2.1.124/work/mono-4.2.1/mcs/class/System.Web/System.Web.Compilation/BuildManager.cs:972 
+  at System.Web.Mvc.BuildManagerWrapper.System.Web.Mvc.IBuildManager.GetCompiledType (System.String virtualPath) [0x00000] in &lt;filename unknown&gt;:0 
+  at System.Web.Mvc.BuildManagerCompiledView.Render (System.Web.Mvc.ViewContext viewContext, System.IO.TextWriter writer) [0x0001c] in &lt;filename unknown&gt;:0 
+  at System.Web.Mvc.ViewResultBase.ExecuteResult (System.Web.Mvc.ControllerContext context) [0x00080] in &lt;filename unknown&gt;:0 
+  at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult (System.Web.Mvc.ControllerContext controllerContext, System.Web.Mvc.ActionResult actionResult) [0x00000] in &lt;filename unknown&gt;:0 
+  at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive (IList`1 filters, Int32 filterIndex, System.Web.Mvc.ResultExecutingContext preContext, System.Web.Mvc.ControllerContext controllerContext, System.Web.Mvc.ActionResult actionResult) [0x0000b] in &lt;filename unknown&gt;:0 
+  at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive (IList`1 filters, Int32 filterIndex, System.Web.Mvc.ResultExecutingContext preContext, System.Web.Mvc.ControllerContext controllerContext, System.Web.Mvc.ActionResult actionResult) [0x0004f] in &lt;filename unknown&gt;:0 </div><div id="footer">
+  <div style="color:Black;"><strong>Version Information:</strong> <tt>4.2.1 (Stable 4.2.1.124/39edf24 Wed Dec  9 22:00:35 MSK 2015)</tt>; ASP.NET Version: <tt>4.0.30319.17020</tt></div>
+  <div id="footer-powered-by">Powered by <a href="http://mono-project.com/">Mono</a></div>
+</div>
+</div>
+</div>
+
+Removing Microsoft.AspNet.Razor...
+<br />
+Unable to uninstall 'Microsoft.AspNet.Razor 3.2.3' because 'Microsoft.AspNet.WebPages 3.2.3, Microsoft.AspNet.Mvc 5.2.3' depend on it.
+<br />
+<br />
+&lt;host factoryType="Meleze.Web.Razor.MinifyHtmlWebRazorHostFactory,Meleze.Web.Razor" /&gt;
+<br />
+<br />
+# find . -type f -iname "*.config" -print0 | xargs -0 grep "host factoryType"
+<br />
+./Views/Web.config:		&lt;host factoryType="System.Web.Mvc.MvcWebRazorHostFactory, System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" /&gt;
+
+
+<br />
+<br />
+заменить в этом файле 5.2.0.0 на 5.2.3.0
+
+
+	</body>
+</html>

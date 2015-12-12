@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+</head>
+<body>
+	@foreach (var p in (ViewData["Products"] as List<middleterraincoatllist.CompanyInfo>)) {
+	<li>
+		@p.Name
+	</li>
+	}
+</body>
+</html>
+

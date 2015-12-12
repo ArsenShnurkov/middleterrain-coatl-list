@@ -19,5 +19,6 @@
     <None Include="IndexOutOfRange.html" />
     <None Include="TheServerTagIsNotWellFormed.html" />
     <None Include="TableNotFound.html" />
+    <None Include="Could_not_locate_Razor_Host_Factory_type.html" />
   </ItemGroup>
 </Project>
