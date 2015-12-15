@@ -8,12 +8,12 @@
 <body>
 	<div>
 	<% var url= Request.ApplyUrlModifier("/Snakes/Create"); %>
-	<form action="<% =url %>" method="POST" >
-	<input type="text" id="tbName" Text="Name" />
+	<form action="<% =url %>" method="post" enctype="application/x-www-form-urlencoded" >
+	<input type="text" id="tbName" name="tbName" Text="Name" value="v1" />
 	<br />
-	<input type="text" id="tbUrl" Text="URL" />
+	<input type="text" id="tbUrl" name="tbUrl" Text="URL" / value="v2" >
 	<br />
-	<input type="text" id="tbDescription" Text="Description" TextMode="multiline" />
+	<input type="text" id="tbDescription" name="tbDescription" Text="Description" TextMode="multiline" value="v3" />
 	<br />
 	<input type="submit" id="id" text="Create" />
 	</form>

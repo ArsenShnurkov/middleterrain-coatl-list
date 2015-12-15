@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.Common;
 using System.Diagnostics;
+using System.Collections.Specialized;
 
 namespace middleterraincoatllist.Controllers
 {
@@ -31,39 +32,51 @@ namespace middleterraincoatllist.Controllers
         {
             return View ();
         } 
-
+		/*
+		https://msdn.microsoft.com/en-us/library/ms525985%28v=vs.90%29.aspx
+		Form input is contained in headers. 
+		http://stackoverflow.com/questions/30313401/request-form-empty
+        Request.Form is NameValueCollection,
+        which returns null if specified key is not found,
+        returns value (which is an empty string) otherwise.
+        If you want to post stuff (i.e populate Request.Form) you need to provide
+        all the data to be posted
+        as setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+        http://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
+        For application/x-www-form-urlencoded, the body of the HTTP message sent to the server 
+        is essentially one giant query string -- name/value pairs are separated by the ampersand (&),
+        and names are separated from values by the equals symbol (=).
+        The Form property is populated when the HTTP request Content-Type value
+        is either "application/x-www-form-urlencoded" or "multipart/form-data".
+        https://msdn.microsoft.com/en-us/library/system.web.httprequest.form%28v=vs.110%29.aspx
+		*/
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
             try
             {
+				// Obtain values from form
+				var ci = new CompanyInfo();
+				//ci.Name = Convert.ToString(collection["tbName"]);
+				//ci.Url = Convert.ToString(collection["tbUrl"]);
+				//ci.Description = Convert.ToString(collection["tbDescription"]);
+				NameValueCollection nvc = Request.Form;
+				ci.Id = 3;
+				ci.Name = Convert.ToString(nvc["tbName"]);
+				ci.Url = Convert.ToString(nvc["tbUrl"]);
+				ci.Description = Convert.ToString(nvc["tbDescription"]);
+
 				using (IDbConnection conn = GetConnection ())
 				{
-					int tableCount = 0;
-					using (IDbCommand cmd = conn.CreateCommand ())
+					using (IDbTransaction tran = conn.BeginTransaction(IsolationLevel.Serializable))
 					{
-						cmd.CommandText = "SHOW TABLES;";
-						cmd.CommandType = CommandType.Text;
-						using (IDataReader reader = cmd.ExecuteReader ())
+						using (IDbCommand cmd = conn.CreateCommand ())
 						{
-							while (reader.Read ())
-							{
-								tableCount++;
-								var tableName = reader [0].ToString ();
-								Trace.WriteLine (tableName);
-							}
+							InsertRecord(conn, tran, ci);
 						}
-					}
-					if (tableCount == 0)
-					{
-						CreateDatabaseStructure (conn, null);
+						tran.Commit();
 					}
 				}
-
-
-                string tbName = Convert.ToString(collection["tbName"]);
-                string tbUrl = Convert.ToString(collection["tbUrl"]);
-                string tbDescription = Convert.ToString(collection["tbDescription"]);
 				return RedirectToAction ("Index");
 				// it will be good to redirect to Details(id) instead of index
             }

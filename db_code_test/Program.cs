@@ -9,9 +9,8 @@ class MainClass
 {
 	public static void Main (string[] args)
 	{
-		if ("///".StartsWith ("/")) {
-		F1 ();
-		}
+		//F1 ();
+		F2();
 	}
 
 	public struct record
@@ -21,27 +20,45 @@ class MainClass
 		public string url;
 	}
 
+	public static void F2 ()
+	{
+		try {
+			using (IDbConnection conn = GetConnection ()) {
+				IDbCommand cmd = conn.CreateCommand ();
+				var reqWithRowNum = "SELECT ROWNUM() AS N, MyId FROM TABLE_TEST1";
+				var reqRestrictedByRowNum = string.Format("SELECT N, MyId FROM ({0}) WHERE N >= 10 AND N < 10+5", reqWithRowNum);
+				var reqRestrictedMyId = string.Format("SELECT MyId FROM ({0})", reqRestrictedByRowNum);
+				var reqRestrictedAll = string.Format("SELECT * FROM TABLE_TEST1 WHERE MyId IN ({0})", reqRestrictedMyId);
+				//cmd.CommandText = "SELECT * FROM (SELECT ROWNUM() AS N, * FROM TABLE_TEST1 ) WHERE N >= 10 AND N < 10+5;";
+				cmd.CommandText = reqRestrictedAll;
+				cmd.CommandType = CommandType.Text;
+				using (IDataReader reader = cmd.ExecuteReader ()) {
+					while (reader.Read ()) {
+						var line = new StringBuilder();
+						for (int i = 0; i < reader.FieldCount; ++i)
+						{
+							var fn = reader.GetName(i);
+							var f = reader [i].ToString ();
+							if ( i > 0 )
+							{
+								line.Append(", ");
+							}
+							line.AppendFormat("{0}:{1}", fn, f);
+						}
+						Console.WriteLine (line.ToString());
+					}
+				}
+			}
+		} catch (Exception ex) {
+			var output = ex.ToString ();
+			Trace.WriteLine (output);
+		}
+	}
+
 	public static void F1 ()
 	{
 		try {
-			string providerName = System.Configuration.ConfigurationManager.ConnectionStrings ["ConnStr"].ProviderName; 
-
-			string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings ["ConnStr"].ConnectionString; 
-
-
-			DbProviderFactory factory = null;
-			try {
-				factory = DbProviderFactories.GetFactory (providerName);
-			} catch (System.Configuration.ConfigurationErrorsException ex) {
-				Trace.WriteLine (ex.ToString ());
-				DataTable table_DbProviderFactories = DbProviderFactories.GetFactoryClasses ();
-				foreach (DataRow row in table_DbProviderFactories.Rows) {
-					Trace.WriteLine (row ["InvariantName"].ToString ());
-				}
-			}
-			using (IDbConnection conn = factory.CreateConnection ()) {
-				conn.ConnectionString = connectionString;
-				conn.Open ();
+			using (IDbConnection conn = GetConnection ()) {
 				IDbCommand cmd = conn.CreateCommand ();
 				cmd.CommandText = "SHOW TABLES;";
 				cmd.CommandType = CommandType.Text;
@@ -194,5 +211,39 @@ class MainClass
 			return "ASC";
 		}
 		throw new ApplicationException ("Wrong sorting directive");
+	}
+
+	private static IDbConnection GetConnection()
+	{
+		try
+		{
+			string providerName = System.Configuration.ConfigurationManager.ConnectionStrings["ConnStr"].ProviderName; 
+
+			string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString; 
+
+
+			DbProviderFactory factory = null;
+			try
+			{
+				factory = DbProviderFactories.GetFactory (providerName);
+			}
+			catch (System.Configuration.ConfigurationErrorsException ex)
+			{
+				Trace.WriteLine (ex.ToString ());
+				DataTable table_DbProviderFactories = DbProviderFactories.GetFactoryClasses ();
+				foreach (DataRow row in table_DbProviderFactories.Rows)
+				{
+					Trace.WriteLine (row ["InvariantName"].ToString());
+				}
+			}
+			IDbConnection conn = factory.CreateConnection ();
+			conn.ConnectionString = connectionString;
+			conn.Open ();
+			return conn;
+		}
+		catch (Exception ex)
+		{
+			throw new ApplicationException("Error while connecting to database", ex);
+		}
 	}
 }

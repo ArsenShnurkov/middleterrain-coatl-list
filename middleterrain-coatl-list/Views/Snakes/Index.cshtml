@@ -8,11 +8,18 @@
     <title>Index</title>
 </head>
 <body>
+<table>
+<a href="/Snakes/Create/">Create new snake</a>
 	@foreach (var p in (ViewData["Products"] as List<middleterraincoatllist.CompanyInfo>)) {
-	<li>
+	<tr><td>
 		@p.Name
-	</li>
+		<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="@p.Url">@p.Url</a>
+		<br />
+		@p.Description
+	</td></tr>
 	}
+</table>
 </body>
 </html>
 

@@ -3,6 +3,8 @@ using System.Text;
 using System.Globalization;
 using System.Web;
 using System.Security.Cryptography;
+using System.Configuration;
+using System.Web.Configuration;
 
 namespace middleterraincoatllist
 {
@@ -390,6 +392,15 @@ namespace middleterraincoatllist
 
 		public static string ApplyUrlModifier(string url, string id)
 		{
+			if (string.IsNullOrEmpty (id)) {
+				return url;
+			}
+			Configuration cfg =
+				WebConfigurationManager.OpenWebConfiguration(System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath);
+			var pConfig = (SessionStateSection)cfg.GetSection("system.web/sessionState");
+			if (pConfig.Cookieless != HttpCookieMode.UseUri) {
+				return url;
+			}
 			UriBuilder newUri = new UriBuilder (url);
 			var query = HttpUtility.ParseQueryString(newUri.Query);
 			query.Add ("SessionID", id);
