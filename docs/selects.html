@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>sql for paging</title>
+	</head>
+	<body>
+<pre>
+Как перенумеровать строки?
+https://en.wikipedia.org/wiki/Select_%28SQL%29#ROW_NUMBER.28.29_window_function
+ROW_NUMBER()
+http://www.openwinforms.com/row_number_to_sql_select.html
+
+CREATE TABLE mytable (myident INTEGER, mystamp TIMESTAMP, mycontent VARCHAR(50));
+INSERT INTO mytable (myident, mystamp, mycontent) VALUES (1, '2016-01-01', '2 weeks ago'), (2, '2016-01-07', '1 week ago');
+SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY mystamp) AS Row, myident, mystamp, mycontent FROM mytable) AS myresult WHERE row BETWEEN 2 AND 2
+
+это работает в psql, то есть в postgres
+
+ещё я бы хотел попробовать генерировать идентификаторы и получать из на сторону клиента.
+
+значит, что я закомичу сегодня на github? что-нибудь в middleterrain-coatl-list
+
+Что мне в этой статье не нравится? Не описано, где задокументирована функция ROW_NUMBER
+
+https://msdn.microsoft.com/en-us/library/ms186734%28v=sql.120%29.aspx
+Applies to: SQL Server (SQL Server 2008 through current version), Azure SQL Database.
+
+ROW_NUMBER ( ) OVER ( [ PARTITION BY value_expression , ... [ n ] ] order_by_clause )
+Return Types: bigint
+If PARTITION BY is not specified, the function treats all rows of the query result set as a single group.
+ROW_NUMBER() is nondeterministic.
+
+http://www.sql-tutorial.ru/ru/book_row_number_function.html
+
+в ряде СУБД в языке SQL появились соответствующие конструкции, 
+в частности, функции ранжирования и оконные (аналитические) функции,
+которые де-юре были зафиксированы в стандарте SQL:2003.
+
+http://www.postgresql.org/docs/8.4/static/functions-window.html
+General-Purpose Window Functions
+row_number() 	bigint 	number of the current row within its partition, counting from 1
+
+you can generate the sequence number using the traditional SQL way like:
+insert into MyList (myNo, LName) select (select count(*) from Employee as e2 where e2.LName &lt;= e1.LName) as myNo, e1.LName from Employee as e1
+you may have to flatten the query sometimes to get better performance. Even then it will not perform that well.
+
+It can be used to help in calculating moving aggregates easily, generate partitions for data, calculate percentile and so on.
+
+
+
+Since ISO SQL:2008 results limits can be specified as in the following example using the FETCH FIRST clause.
+SELECT * FROM T FETCH FIRST 10 ROWS ONLY
+
+Этого достаточно, если добавить условие, что отбирать только с ROWNUM &gt; N
+</pre>
+	</body>
+</html>
