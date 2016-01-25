@@ -60,7 +60,7 @@ class MainClass
 		try {
 			using (IDbConnection conn = GetConnection ()) {
 				IDbCommand cmd = conn.CreateCommand ();
-				cmd.CommandText = "SHOW TABLES;";
+				cmd.CommandText = "SELECT * FROM INFORMATION_SCHEMA.TABLES;";
 				cmd.CommandType = CommandType.Text;
 				int tableCount = 0;
 				using (IDataReader reader = cmd.ExecuteReader ()) {

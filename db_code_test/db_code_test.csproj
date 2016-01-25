@@ -39,12 +39,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\SharpHSQL.git\src\SharpHSQL\SharpHsql.csproj">
-      <Project>{B98F7374-FF00-4BB7-93EC-39763A76BFFF}</Project>
-      <Name>SharpHsql</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
 </Project>

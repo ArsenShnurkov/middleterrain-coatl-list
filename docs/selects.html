@@ -12,7 +12,9 @@ http://www.openwinforms.com/row_number_to_sql_select.html
 
 CREATE TABLE mytable (myident INTEGER, mystamp TIMESTAMP, mycontent VARCHAR(50));
 INSERT INTO mytable (myident, mystamp, mycontent) VALUES (1, '2016-01-01', '2 weeks ago'), (2, '2016-01-07', '1 week ago');
-SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY mystamp) AS Row, myident, mystamp, mycontent FROM mytable) AS myresult WHERE row BETWEEN 2 AND 2
+SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY mystamp) AS Row, myident, mystamp, mycontent FROM mytable) AS myresult WHERE row >= 2 FETCH FIRST 1 ROWS ONLY
+Since ISO SQL:2008 results limits can be specified as in the following example using the FETCH FIRST clause.
+SELECT * FROM T FETCH FIRST 10 ROWS ONLY
 
 это работает в psql, то есть в postgres
 
@@ -48,8 +50,6 @@ It can be used to help in calculating moving aggregates easily, generate partiti
 
 
 
-Since ISO SQL:2008 results limits can be specified as in the following example using the FETCH FIRST clause.
-SELECT * FROM T FETCH FIRST 10 ROWS ONLY
 
 Этого достаточно, если добавить условие, что отбирать только с ROWNUM &gt; N
 </pre>
