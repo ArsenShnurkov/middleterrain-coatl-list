@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS integer_quantities_value_change_event;
+DROP TABLE IF EXISTS dimension_definition_state;
+DROP TABLE IF EXISTS integer_quantities_event;
+DROP TABLE IF EXISTS integer_quantities_state;
+DROP TABLE IF EXISTS dimension_definition_event;
+DROP TABLE IF EXISTS dimension_definition_part_state;
+
 -- формула размерности
 
 CREATE TABLE dimension_definition_state
