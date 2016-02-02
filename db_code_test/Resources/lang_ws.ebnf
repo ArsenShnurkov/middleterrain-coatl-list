@@ -1,20 +1,19 @@
 file := [ws], ( table_definition | fact_definition), {[ws], (table_definition | fact_definition ) }, [ws];
 
-table_definition := "TABLE", ws, table_name, [ws], [ inheritance_specification, [ws]] , (round_body | curly_body) , [ws], ";" 
+table_definition := "TABLE", ws, table_name, [ws], [ inheritance_specification, [ws]] , "{", [ws], [ semicolon_separated_field_list, [ws] ], "}" , [ws], ";" 
 		;
 
+(*
 fact_definition := "FACT", {nonsemicolon_span}, ";" 
 	;
-
 nonsemicolon_char := ac - ";" ;
 nonsemicolon_span := ( ws | nonsemicolon_char ), { ws | nonsemicolon_char };
+*)
+fact_definition := "FACT", [ ws, identifier, [ws], "="], ws, identifier, [ws], object_initializer, [ws], ";" ;
 
 table_name := identifier, [ ws, "as" , ws, class_name ];
 
 class_name := identifier;
-
-round_body := "(", [ws], [ comma_separated_field_list, [ws] ], ")";
-curly_body := "{", [ws], [ semicolon_separated_field_list, [ws] ], "}";
 
 comma_separated_field_list := member_definition, {[ws], ",", [ws], member_definition } ;
 
@@ -51,8 +50,30 @@ list_of_levels := list_of_levels, [ws], ",", [ws], identifier
 	| identifier
 	; 
 
+object_initializer := "(", [ws], field_initializer, { [ws], ",", [ws], field_initializer } , [ws], ")" ;
+
+field_initializer := identifier, [ws], "=", [ws], (initializer_item | set_initializer | array_initializer) ;
+
+initializer_item := identifier | integer | rational | string | date ;
+set_initializer := "{", [[ws], initializer_item, { [ws], ",", [ws], initializer_item }], [ws], "}" ;
+array_initializer := "<", [[ws], initializer_item, { [ws], ",", [ws], initializer_item }], [ws], ">" ;
+
 identifier := letter , { letter | digit | "_" } ;
 
+string := quote, [string_element2, { string_element2 }] , quote
+         | dquote, [string_element1, { string_element1}] , dquote ;
+string_element1 = escape_seq | quote | (ac - dquote);
+string_element2 = escape_seq | dquote | (ac - quote);
+escape_seq := backslash, "x", 4 * [digit_hex], [";"] ;
+
+
+
+integer := [ "-" ], nonnegative_integer;
+nonnegative_integer := digit, {digit} ;
+
+rational := integer, "/", nonnegative_integer;
+
+date := digit, digit, digit, digit, ["-", [digit], digit, ["-", [digit], digit]] ;
 
 comment_start := "/*" ;
 comment_unit_1 := ( ac - "*" ) ;
