@@ -1,1 +1,296 @@
-﻿1234
+﻿/*
+http://stackoverflow.com/questions/1980640/is-it-a-good-idea-to-incorporate-a-reference-count-into-every-database-table
+
+SET<->SET = many to many
+SET<->ARRAY = seq number, many to many
+REF ->SET = many to one
+REF ->ARRAY = seq number, many to one
+: (inheritance) = REF to parent + field in parent + type classifier
+(элементами классификатора вставляется список имён дочерних таблиц)
+WITHOUT EVENTS - для таблиц с фактами из внешних источников 
+незменяемыми в программе (исключение при попытке изменить)
+*/
+
+/* linguistics */
+
+TABLE notation // type of scription, for example alphabet is notation, decimal digits is notation
+(
+	SET<language> notation_language as Languages; // in which languages the notation is used
+	SET<word_in_language_and_notation> name_of_notation as Names;
+);
+
+TABLE language
+(
+	ARRAY<notation> notation_language as Notations; // in which languages the notation is used
+	SET<word_in_language_and_notation> name_of_language as Names; // where id = self, and default notation - it's selfname
+);
+
+TABLE word_in_language_and_notation
+(
+	REF<language> name_of_language as Language;
+	REF<notation> name_of_notation as Notation;
+	STRING word; // формула, по которой можно построить нужное слово в зависимости от контекста
+);
+
+TABLE translation_unit
+(
+	word_of language base;
+	word_of language replacement;
+);
+
+TABLE translation_set
+{
+	SET<translation_unit> units;
+	SET<word_in_language_and_notation> name_of_translation_set; // another identifier = no linkage, new table?
+}
+
+TABLE obj_which_can_be_named
+(
+	SET<word_in_language_and_notation> names;
+);
+
+TABLE text_for_markup
+(
+	STRING text;
+);
+
+TABLE markup_item : obj_which_can_be_commented
+(
+	segment_start INTEGER,
+	segment_length INTEGER,
+);
+
+
+
+
+/* Forums functionality */
+
+TABLE notes
+(
+	text_for_markup text;
+);
+
+TABLE notes_predcessors_array
+(
+	ARRAY<obj_which_can_be_commented> predcessors;
+);
+
+TABLE obj_which_can_be_commented : obj_which_can_be_named
+(
+	text_for_markup notes;
+);
+
+
+
+
+/* metrology */
+
+TABLE dimension_formula
+(
+	SET<dimension_formula_item> formula_item as Items;
+);
+
+TABLE dimension_formula_item
+(
+	REF<dimension_formula> formula_item as Parent;
+	RATIONAL power;
+	unit unit; // which units are used to measure this component
+);
+
+
+/* Geography */
+
+TABLE location_vertex
+(
+	STRING coordinates;
+);
+
+TABLE separation_line
+(
+	location_vertex from;
+	location_vertex to;
+);
+
+TABLE territory : obj_which_can_be_named // actually it can be owned under some governments
+(
+	SET<separation_line> borders;
+);
+
+TABLE municipal_district : territory
+(
+    // name is inherited, borders are calculated (cache)
+);
+
+TABLE federal_district : territory
+(
+    ARRAY<municipal_district> parts; // 0 = administrative center
+    // name is inherited, borders are calculated (cache)
+);
+
+TABLE country : territory
+(
+    ARRAY<federal_district> parts; // 0 = capital
+    // name is inherited, borders are calculated (cache)
+    ARRAY<language> official_languages; // 0 = default language, 1,2 = others
+);
+
+
+
+
+
+
+
+/* Society */
+
+TABLE obj_which_can_be_owned : obj_which_can_be_commented
+(
+	STRING description;
+	set<legal_subject> owners; // владеть
+	set<legal_subject> managers; // распоряжаться (например продать, уничтожить, сменить операторов)
+	set<legal_subject> operators; // управлять непосредственно
+);
+
+TABLE executor : obj_which_can_be_commented
+(
+);
+
+TABLE legal_subject : obj_which_can_be_commented, obj_which_can_be_named
+(
+	SET<right> rights;
+	SET<obj_which_can_be_owned> things;
+);
+
+TABLE human : executor, legal_subject
+(
+	ARRAY<language> learned_languages; // 0 = native, 1, 2 ... others
+);
+
+TABLE ai : obj_which_can_be_commented, executor // but not a legal subject and can't have rights from agreements
+/* ну компании-то права имеют? и делегируют права людям. Люди на основании прав выполняют действия */
+(
+);
+
+TABLE government : obj_which_can_be_named
+(
+	STRING country_code;
+	SET<executor> members; // AI's can govern the country
+);
+
+TABLE website : obj_which_can_be_owned (
+	STRING url;
+)
+
+TABLE company : obj_which_can_be_owned, legal_subject // but not an executor
+(
+	STRING agreement; // text of agreement between shareholders
+	SET<ownership_share> company_ownership_share as Owners;
+	SET<executor> employees; // company can hire/fire AI on rhim's own will
+	SET<vacancy> company_vacancy as Vacancies;
+	SET<office> offices;
+	ARRAY<website> sites; // 0 = official site of company
+	STRING mission;
+	STRING government_code;
+);
+
+TABLE ownership_share
+(
+	REF<company> company_ownership_share;
+	legal_subject owner; // AI's can't own companies
+	RATIONAL percentage;
+);
+
+
+/* contacts */
+TABLE legal_subject_contact : obj_which_can_be_commented
+(
+	legal_subject who;
+	communication_type communication_type;
+	STRING contact_info;
+);
+
+TABLE communication_type : obj_which_can_be_commented, obj_which_can_be_named
+(
+);
+
+FACT communication_type (names['english'] = 'email');
+FACT communication_type (names['english'] = 'phone');
+FACT communication_type (names['english'] = 'jabber');
+FACT communication_type (names['english'] = 'xmpp');
+FACT communication_type (names['english'] = 'irc');
+
+/* territory landscape features */
+
+TABLE office : obj_which_can_be_owned
+(
+	REF<geolocation> location;
+	STRING office_name;
+	STRING office_address;
+	ARRAY<legal_subject_contact> contacts; // cache for contacts of owner and user? just contact of reception
+);
+
+/* currency conversions */
+
+(* что делать, если в уровне классификатора нет полей? генерировать такой тип автоматически?
+чем тогда классификатор отличается от простой таблицы - записью метаинформации о том, что это классификатор? *)
+TABLE currency : obj_which_can_be_named
+(
+);
+
+TABLE currency_value // : rational
+(
+	DATE date;
+	RATIONAL rate;
+	dimension_formula dimension_formula;
+	currency base_currency; // source for dimension_formula
+	currency rated_currency; // source for dimension_formula
+	STRING source_value_of_rate;
+);
+
+/* vacancies */
+TABLE benefit : obj_which_can_be_commented
+(
+);
+
+TABLE requirement : obj_which_can_be_commented
+(
+	STRING req_name; // названия технологий не переводятся
+);
+
+TABLE vacancy : obj_which_can_be_commented
+(
+	REF<company> company_vacancy as Company;
+	ARRAY<requirement> requirements;
+	ARRAY<benefit> benefits;
+	RATIONAL compensation;
+	STRING official_url; // from company's website
+	text_for_markup text_of_vacancy;
+);
+
+/* Advertisements */
+TABLE job_advertisement_distribution_channel : obj_which_can_be_owned
+(
+	SET<advertisement_fact> channel_advertisement_fact as Items;
+	website website;
+);
+
+TABLE advertisement_fact : obj_which_can_be_commented
+(
+	REF<job_advertisement_distribution_channel> channel_advertisement_fact as Parent;
+	STRING unofficial_url;
+	text_for_markup text_of_advertisement;
+);
+
+/* Access right scheme */
+TABLE permission;
+
+TABLE right (
+	SET<legal_subject> subject;
+	SET<dbobject> object;
+	SET<permission> right;
+);
+
+TABLE default_right (
+	SET<legal_subject> subject;
+	SET<dbobject> object;
+	SET<permission> right;
+);

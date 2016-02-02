@@ -24,7 +24,7 @@ file := list_of_definitions
 list_of_definitions := list_of_definitions, table_definition 
 		| string_empty ;
 
-table_definition := "TABLE", table_name, [ inheritance_specification ] , "(", field_list, ")", ";" 
+table_definition := "TABLE", ws, table_name, [ inheritance_specification ] , "(", field_list, ")", ";" 
 		| set_definition
 		| array_definition
 		| classifier_definition

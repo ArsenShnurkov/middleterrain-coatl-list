@@ -1,28 +1,42 @@
 file := { [ws], list_of_definitions }, [ws] ;
 
 list_of_definitions := list_of_definitions, [ws], table_definition
-		| table_definition ;
+		| table_definition
+		| fact_definition
+		;
 
-table_definition := "TABLE", ws, table_name, [ws], [ inheritance_specification, [ws]] , "(", [ws], field_list, [ws], ")", [ws], ";" 
+table_definition := "TABLE", ws, table_name, [ws], [ inheritance_specification, [ws]] , "(", [ws], [ field_list, [ws] ], ")", [ws], ";" 
 		| set_definition
 		| array_definition
 		| classifier_definition
 		;
 
-table_name := identifier;
+fact_definition := "FACT", ws, {fact_body_char}, ";" ;
+fact_body_char := ( ac - ";" ) ;
 
-field_list := field_list, [ws], ",", [ws], member_definition 
+table_name := identifier, [ws, "as" , ws, class_name ];
+
+class_name := identifier;
+
+field_list := field_list, [ws], ",", [ws], member_definition
 	| member_definition
-	; 
+	;
 
-inheritance_specification := ":", [ws], identifier;
+inheritance_specification := ":", [ws], inheritance_specification_list;
+inheritance_specification_list := inheritance_specification_list, [ws], ",", [ws], identifier
+	| identifier
+	;
 
 member_definition := field_definition | aggregation_definition;
 
-field_definition := ( "INTEGER" | "DECIMAL" | "STRING" | "TIMESTAMP" | "DATE" ), ws, identifier ;
+(* "INTEGER" -> "DECIMAL", INTEGERS for keys are implied *)
+field_definition := ( "INTEGER" | "RATIONAL" | "STRING" | "DATE" ), ws, identifier, [ws, "as" , ws, field_name ] ;
 
-aggregation_definition := identifier, ws, identifier
-		| "REF", ws, identifier
+field_name := identifier;
+
+aggregation_definition := identifier, ws, identifier, [ws, "as" , ws, field_name ]
+		| "REF", [ws], "<", [ws], identifier, [ws], ">", ws, identifier, [ws, "as" , ws, field_name ]
+		(* REF мы ставим, чтобы подчеркнуть, что с другой стороны там соответствующий идентификатору SET или ARRAY *)
 		;
 
 set_definition := "SET", [ws], "<", [ws], identifier, [ws], ">", ws, identifier;
@@ -43,6 +57,17 @@ list_of_levels := list_of_levels, [ws], ",", [ws], identifier
 	; 
 
 identifier := letter , { letter | digit | "_" } ;
+
+
+comment_start := "/*" ;
+comment_unit_1 := ( ac - "*" ) ;
+comment_unit_2 := ( ac - "/" ) ;
+comment_unit := "*", comment_unit_2 | comment_unit_1;
+comment_end := "*/" ;
+block_comment := comment_start , { comment_unit }, comment_end ;
+comment_unit_3 := ( ac - cr - lf ) ;
+line_comment := "//", { comment_unit_3 } ;
+comment := line_comment | block_comment;
 
 symbol := "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">"
        | "=" | "|" | "." | "," | ";"
