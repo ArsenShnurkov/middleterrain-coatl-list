@@ -14,7 +14,7 @@ partial class Globals
 {
 	public static void Main (string[] args)
 	{
-		var grammar = LoadFromResource("db_code_test", "Resources", "lang.ebnf");
+		var grammar = LoadFromResource("db_code_test", "Resources", "lang_ws.ebnf");
 		using (var s = new FileStream ("definition.dbt", FileMode.Open)) {
 			var code_to_compile = LoadFromStream (s);
 			Trace.WriteLine (code_to_compile);

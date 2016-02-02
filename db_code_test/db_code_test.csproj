@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\lang.ebnf" />
+    <EmbeddedResource Include="Resources\lang_ws.ebnf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="definition.dbt">

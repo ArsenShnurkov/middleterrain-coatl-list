@@ -1,30 +1,9 @@
-(* накатать по-быстрому DSL-язык и компилятор к нему.
-Задачи компилятора:
-- пара таблиц состояние/событие + записи в справочнике типов операций
-- удаление таблиц
-- генерирование вспомогательных типов
-- упорядочивание таблиц в порядке DAG ссылок и по алфавиту
-- генерирование таблиц для управления доступом (а нельзя ли обойтись одной общей?)
-- верификация документации (лишние и недостаточные топики из .po-формата?), перевод гугл-транслейтом (заблочит) и генерирование HTML ?
+file := { [ws], list_of_definitions }, [ws] ;
 
-нужно ещё описать XML для того, чтобы описывать таблицы в смежном документе/спецредакторе,
-и синтаксис документации (ты же вроде хотел .po-файлы)
+list_of_definitions := list_of_definitions, [ws], table_definition
+		| table_definition ;
 
-вызывать библиотеку для автовычисления расположения этих таблиц на рисунке,
-сохранять в отдельный файл отредактированные месторасположения (вместе с историей редактирования?)
-
-Ещё можно заготовки .cs-файлов для DAL генерировать, и писать туда ключевое слово "partial"
-
-На первом этапе только голая генерация скрипта под одну конкретную СУБД
- *)
-string_empty := ;
-
-file := list_of_definitions
-		;
-list_of_definitions := list_of_definitions, table_definition 
-		| string_empty ;
-
-table_definition := "TABLE", table_name, [ inheritance_specification ] , "(", field_list, ")", ";" 
+table_definition := "TABLE", ws, table_name, [ws], [ inheritance_specification, [ws]] , "(", [ws], field_list, [ws], ")", [ws], ";" 
 		| set_definition
 		| array_definition
 		| classifier_definition
@@ -32,45 +11,75 @@ table_definition := "TABLE", table_name, [ inheritance_specification ] , "(", fi
 
 table_name := identifier;
 
-(* comma-separated list *)
-field_list := field_list, ",", member_definition 
+field_list := field_list, [ws], ",", [ws], member_definition 
 	| member_definition
 	; 
 
-(* _fk NINHERITANCE, *)
-inheritance_specification := ":", identifier;
+inheritance_specification := ":", [ws], identifier;
 
 member_definition := field_definition | aggregation_definition;
 
-field_definition := ( "INTEGER" | "DECIMAL" | "STRING" | "TIMESTAMP" | "DATE" ), identifier ;
+field_definition := ( "INTEGER" | "DECIMAL" | "STRING" | "TIMESTAMP" | "DATE" ), ws, identifier ;
 
-(* _fk NREFERENCE, *)
-aggregation_definition := identifier, identifier
-		| "REF", identifier
+aggregation_definition := identifier, ws, identifier
+		| "REF", ws, identifier
 		;
 
-(* как определять справочники? - это SET *)
-set_definition := "SET", "<", identifier, ">", identifier;
+set_definition := "SET", [ws], "<", [ws], identifier, [ws], ">", ws, identifier;
 		;
 
 (* что если позиция в множестве важна? *)
-array_definition := "ORDERED", "SET", "<", identifier, ">", identifier;
+array_definition := "ORDERED", ws, "SET", [ws], "<", [ws], identifier, [ws], ">", ws, identifier;
 		;
 
-(* как определять многоуровневые справочники? *)
-classifier_definition := CLASSIFIER, "<" , list_of_levels, ">"
+classifier_definition := CLASSIFIER, [ws], "<", [ws] , list_of_levels, [ws], ">"
 		;
 
-(* важен ли в справочниках порядок элементов? *)
-ordered_classifier_definition := "ORDERED", "CLASSIFIER", "<" , list_of_levels, ">"
+ordered_classifier_definition := "ORDERED", ws, "CLASSIFIER", [ws], "<", [ws] , list_of_levels, [ws], ">"
 		;
 
-(* comma-separated list *)
-list_of_levels := list_of_levels, ",", identifier
+list_of_levels := list_of_levels, [ws], ",", [ws], identifier
 	| identifier
 	; 
 
-(* а что для контроля доступа? *)
+identifier := letter , { letter | digit | "_" } ;
 
-(* как понавставлять объекты по-умолчанию? для этого тоже синтаксис нужен? да ещё, похоже, с переменными и массивами... либо надо научиться ссылаться на объекты,
-но как раз для ссылания этого нужны переменные *)
+symbol := "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">"
+       | "=" | "|" | "." | "," | ";"
+       | "*" | ":" | "-" | "?" | "_"
+       ;
+
+tab := "\x0009" ;
+lf := "\x000A" ;
+cr := "\x000D" ;
+space := "\x0020" ;
+dquote := "\x0022" ;
+quote := "\x0027" ;
+backslash := "\x005C" ;
+eol := ? Terminals.Eol ? ;
+ac := ? Terminals.AnyChar ? ;
+
+space_or_tab := ( space | tab ) ;
+line_separator_raw := ( cr, lf ) | cr | lf ;
+sp := space_or_tab, {space_or_tab} ;
+sp_with_linebreak_raw := line_separator_raw | comment ;
+ws_unit := space_or_tab | sp_with_linebreak_raw;
+ws := ws_unit, {ws_unit} ;
+
+letter := "A" | "B" | "C" | "D" | "E" | "F" | "G"
+       | "H" | "I" | "J" | "K" | "L" | "M" | "N"
+       | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
+       | "V" | "W" | "X" | "Y" | "Z" | "a" | "b"
+       | "c" | "d" | "e" | "f" | "g" | "h" | "i"
+       | "j" | "k" | "l" | "m" | "n" | "o" | "p"
+       | "q" | "r" | "s" | "t" | "u" | "v" | "w"
+       | "x" | "y" | "z" ;
+
+digit := "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+
+digit_hex := digit 
+		| "A" | "B" | "C" | "D" | "E" | "F"
+		| "a" | "b" | "c" | "d" | "e" | "f"
+		;
+
+empty_sequence := ;
