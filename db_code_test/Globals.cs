@@ -72,8 +72,7 @@ System.ArgumentException: the topParser specified is not found in this ebnf
 	public static Schema Compile(GrammarMatch node)
 	{
 		var res = new Schema ();
-		throw new NotImplementedException ("TODO: write real text to compile");
-		throw new NotImplementedException ("TODO: improve grammar to be able to parse real text");
+		throw new NotImplementedException ("TODO: improve grammar to parse FACT records");
 		var tableDeclarations = from n in node.Matches where n.Name == "table_definition" select n.Matches["table_name"].Text;
 		foreach (var tableName in tableDeclarations)
 		{
