@@ -1,18 +1,88 @@
 ﻿using System;
+using System.Linq;
+using System.Data;
+using System.Text;
 using System.Configuration;
 using System.Data.Common;
 using System.Diagnostics;
-using System.Data;
-using System.Text;
+using System.IO;
+using Eto.Parse;
+using Eto.Parse.Grammars;
+using db_code_test;
 
-class MainClass
+partial class Globals
 {
 	public static void Main (string[] args)
 	{
+		var grammar = LoadFromResource("db_code_test", "Resources", "lang.ebnf");
+		using (var s = new FileStream ("definition.dbt", FileMode.Open)) {
+			var code_to_compile = LoadFromStream (s);
+			Trace.WriteLine (code_to_compile);
+			Process (grammar, code_to_compile);
+		}
+
 		//F1 ();
-		F2();
+		//F2();
 	}
 
+	public static void Process (string grammar_def, string text)
+	{
+		EbnfStyle style = (EbnfStyle)(
+			(uint)EbnfStyle.Iso14977 
+			//& ~(uint) EbnfStyle.WhitespaceSeparator	
+			| (uint) EbnfStyle.EscapeTerminalStrings);
+
+		EbnfGrammar grammar;
+		Grammar parser;
+		try
+		{
+			grammar = new EbnfGrammar(style);
+			parser = grammar.Build(grammar_def, "file");
+		}
+		catch (Exception ex)
+		{
+			Trace.WriteLine (ex.ToString ());
+			/*
+System.ArgumentException: the topParser specified is not found in this ebnf
+  at Eto.Parse.Grammars.EbnfGrammar.Build (System.String bnf, System.String startParserName) [0x00048] in <filename unknown>:0 
+  at Globals.Main (System.String[] args) [0x0002b] in /var/calculate/remote/distfiles/egit-src/SqlParser-on-EtoParse.git/test1/Program.cs:20 
+*/
+			throw;
+		}
+
+		var match = parser.Match(text);
+		if (match.Success == false) {
+			Console.Out.WriteLine ("No luck!");
+		}
+		else {
+			Console.Out.WriteLine ("Success.");
+		}
+
+		var schema = Compile (match);
+
+		using (var o = new FileStream("output.sql", FileMode.OpenOrCreate | FileMode.Truncate))
+		{
+			using (var tv = new StreamWriter(o, Encoding.UTF8))
+			{
+				var generator = new PostgreSQL ();
+				generator.Generate(schema, tv);
+			}
+		}
+	}
+	public static Schema Compile(GrammarMatch node)
+	{
+		var res = new Schema ();
+		throw new NotImplementedException ("TODO: write real text to compile");
+		throw new NotImplementedException ("TODO: improve grammar to be able to parse real text");
+		var tableDeclarations = from n in node.Matches where n.Name == "table_definition" select n.Matches["table_name"].Text;
+		foreach (var tableName in tableDeclarations)
+		{
+			var t = res.CreateTable();
+			t.Name = tableName;
+		}
+		throw new NotImplementedException ("TODO: columns, references and other parsing");
+		return res;
+	}
 	public struct record
 	{
 		public int id;

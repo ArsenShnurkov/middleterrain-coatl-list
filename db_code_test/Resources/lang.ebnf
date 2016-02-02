@@ -1,0 +1,76 @@
+(* накатать по-быстрому DSL-язык и компилятор к нему.
+Задачи компилятора:
+- пара таблиц состояние/событие + записи в справочнике типов операций
+- удаление таблиц
+- генерирование вспомогательных типов
+- упорядочивание таблиц в порядке DAG ссылок и по алфавиту
+- генерирование таблиц для управления доступом (а нельзя ли обойтись одной общей?)
+- верификация документации (лишние и недостаточные топики из .po-формата?), перевод гугл-транслейтом (заблочит) и генерирование HTML ?
+
+нужно ещё описать XML для того, чтобы описывать таблицы в смежном документе/спецредакторе,
+и синтаксис документации (ты же вроде хотел .po-файлы)
+
+вызывать библиотеку для автовычисления расположения этих таблиц на рисунке,
+сохранять в отдельный файл отредактированные месторасположения (вместе с историей редактирования?)
+
+Ещё можно заготовки .cs-файлов для DAL генерировать, и писать туда ключевое слово "partial"
+
+На первом этапе только голая генерация скрипта под одну конкретную СУБД
+ *)
+string_empty := ;
+
+file := list_of_definitions
+		;
+list_of_definitions := list_of_definitions, table_definition 
+		| string_empty ;
+
+table_definition := "TABLE", table_name, [ inheritance_specification ] , "(", field_list, ")", ";" 
+		| set_definition
+		| array_definition
+		| classifier_definition
+		;
+
+table_name := identifier;
+
+(* comma-separated list *)
+field_list := field_list, ",", member_definition 
+	| member_definition
+	; 
+
+(* _fk NINHERITANCE, *)
+inheritance_specification := ":", identifier;
+
+member_definition := field_definition | aggregation_definition;
+
+field_definition := ( "INTEGER" | "DECIMAL" | "STRING" | "TIMESTAMP" | "DATE" ), identifier ;
+
+(* _fk NREFERENCE, *)
+aggregation_definition := identifier, identifier
+		| "REF", identifier
+		;
+
+(* как определять справочники? - это SET *)
+set_definition := "SET", "<", identifier, ">", identifier;
+		;
+
+(* что если позиция в множестве важна? *)
+array_definition := "ORDERED", "SET", "<", identifier, ">", identifier;
+		;
+
+(* как определять многоуровневые справочники? *)
+classifier_definition := CLASSIFIER, "<" , list_of_levels, ">"
+		;
+
+(* важен ли в справочниках порядок элементов? *)
+ordered_classifier_definition := "ORDERED", "CLASSIFIER", "<" , list_of_levels, ">"
+		;
+
+(* comma-separated list *)
+list_of_levels := list_of_levels, ",", identifier
+	| identifier
+	; 
+
+(* а что для контроля доступа? *)
+
+(* как понавставлять объекты по-умолчанию? для этого тоже синтаксис нужен? да ещё, похоже, с переменными и массивами... либо надо научиться ссылаться на объекты,
+но как раз для ссылания этого нужны переменные *)

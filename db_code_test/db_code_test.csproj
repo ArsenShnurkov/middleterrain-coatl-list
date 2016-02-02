@@ -32,13 +32,41 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Eto.Parse">
+      <HintPath>..\packages\Eto.Parse.1.4.0\lib\net45\Eto.Parse.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="Globals.Resources.cs" />
+    <Compile Include="generator\Table.cs" />
+    <Compile Include="generator\Column.cs" />
+    <Compile Include="generator\Obj.cs" />
+    <Compile Include="generator\Array.cs" />
+    <Compile Include="generator_postgresql\PostgreSQL.cs" />
+    <Compile Include="generator\Schema.cs" />
+    <Compile Include="generator\TopologicalSort.cs" />
+    <Compile Include="generator\Ref.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="generator\" />
+    <Folder Include="generator_postgresql\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\lang.ebnf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="definition.dbt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
