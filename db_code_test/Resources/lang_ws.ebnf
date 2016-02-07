@@ -1,14 +1,6 @@
 file := [ws], ( table_definition | fact_definition), {[ws], (table_definition | fact_definition ) }, [ws];
 
-table_definition := "TABLE", ws, table_name, [ws], [ inheritance_specification, [ws]] , "{", [ws], [ semicolon_separated_field_list, [ws] ], "}" , [ws], ";" 
-		;
-
-(*
-fact_definition := "FACT", {nonsemicolon_span}, ";" 
-	;
-nonsemicolon_char := ac - ";" ;
-nonsemicolon_span := ( ws | nonsemicolon_char ), { ws | nonsemicolon_char };
-*)
+table_definition := "TABLE", ws, table_name, [ws], [ inheritance_specification, [ws]] , "{", [ws], [ semicolon_separated_field_list, [ws] ], "}" , [ws], ";" ;
 fact_definition := "FACT", [ ws, identifier, [ws], "="], ws, identifier, [ws], object_initializer, [ws], ";" ;
 
 table_name := identifier, [ ws, "as" , ws, class_name ];
@@ -43,7 +35,6 @@ aggregation_definition := identifier, ws, identifier, [ws, "as" , ws, field_name
 
 set_definition := "SET", [ws], "<", [ws], identifier, [ws], ">", ws, identifier, [ ws, "as", ws, identifier ];
 
-(* что если позиция в множестве важна? *)
 array_definition := "ARRAY", [ws], "<", [ws], identifier, [ws], ">", ws, identifier, [ ws, "as", ws, identifier ];
 
 list_of_levels := list_of_levels, [ws], ",", [ws], identifier
@@ -62,18 +53,19 @@ identifier := letter , { letter | digit | "_" } ;
 
 string := quote, [string_element2, { string_element2 }] , quote
          | dquote, [string_element1, { string_element1}] , dquote ;
-string_element1 = escape_seq | quote | (ac - dquote);
-string_element2 = escape_seq | dquote | (ac - quote);
+string_element1 = escape_seq | (ac - dquote);
+string_element2 = escape_seq | (ac - quote);
 escape_seq := backslash, "x", 4 * [digit_hex], [";"] ;
 
 
+date := [ 2 * digit ], 2 * digit, ["-", [digit], digit, ["-", [digit], digit]] ;
 
 integer := [ "-" ], nonnegative_integer;
+
 nonnegative_integer := digit, {digit} ;
 
 rational := integer, "/", nonnegative_integer;
 
-date := digit, digit, digit, digit, ["-", [digit], digit, ["-", [digit], digit]] ;
 
 comment_start := "/*" ;
 comment_unit_1 := ( ac - "*" ) ;
@@ -90,8 +82,7 @@ symbol := "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">"
        | "*" | ":" | "-" | "?" | "_"
        ;
 
-tab := "\x0009" ;
-(* \r\n 0D0A (hex), 13,10 (decimal) *)
+tab := "\x0009" ; (* \t *)
 lf := "\x000A" ; (* \r *)
 cr := "\x000D" ; (* \n *)
 space := "\x0020" ;
@@ -102,6 +93,7 @@ eol := ? Terminals.Eol ? ;
 ac := ? Terminals.AnyChar ? ;
 
 space_or_tab := ( space | tab ) ;
+(* \r\n 0D0A (hex), 13,10 (decimal) *)
 line_separator_raw := ( cr, lf ) | cr | lf ;
 sp := space_or_tab, {space_or_tab} ;
 sp_with_linebreak_raw := line_separator_raw | comment ;
@@ -123,5 +115,3 @@ digit_hex := digit
 		| "A" | "B" | "C" | "D" | "E" | "F"
 		| "a" | "b" | "c" | "d" | "e" | "f"
 		;
-
-empty_sequence := ;

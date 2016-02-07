@@ -42,14 +42,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Globals.Resources.cs" />
-    <Compile Include="generator\Table.cs" />
-    <Compile Include="generator\Column.cs" />
-    <Compile Include="generator\Obj.cs" />
-    <Compile Include="generator\Array.cs" />
-    <Compile Include="generator_postgresql\PostgreSQL.cs" />
-    <Compile Include="generator\Schema.cs" />
-    <Compile Include="generator\TopologicalSort.cs" />
-    <Compile Include="generator\Ref.cs" />
+    <Compile Include="transformations\EtoParseToAbstractModel.cs" />
+    <Compile Include="ModelForPostgreSQL\PostgreSQL.cs" />
+    <Compile Include="ModelForAbstractDb\Table.cs" />
+    <Compile Include="ModelForAbstractDb\Column.cs" />
+    <Compile Include="ModelForAbstractDb\Array.cs" />
+    <Compile Include="ModelForAbstractDb\Schema.cs" />
+    <Compile Include="ModelForAbstractDb\TopologicalSort.cs" />
+    <Compile Include="ModelForAbstractDb\Ref.cs" />
+    <Compile Include="AbstractSyntaxModel\ClassDef.cs" />
+    <Compile Include="AbstractSyntaxModel\AbstractModel.cs" />
+    <Compile Include="AbstractSyntaxModel\Variable.cs" />
+    <Compile Include="AbstractSyntaxModel\ObjectDef.cs" />
+    <Compile Include="transformations\SyntaxModelToDatabaseModel.cs" />
+    <Compile Include="transformations\DatabaseModelToPostgreSQL.cs" />
+    <Compile Include="transformations\DatabaseModelToMySQL.cs" />
+    <Compile Include="transformations\DatabaseModelToDevelDb.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -58,8 +66,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="generator\" />
-    <Folder Include="generator_postgresql\" />
+    <Folder Include="transformations\" />
+    <Folder Include="ModelForPostgreSQL\" />
+    <Folder Include="ModelForDeveelDb\" />
+    <Folder Include="ModelForAbstractDb\" />
+    <Folder Include="ModelForMySQL\" />
+    <Folder Include="AbstractSyntaxModel\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\lang.ebnf" />

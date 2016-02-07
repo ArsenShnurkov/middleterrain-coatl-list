@@ -71,14 +71,12 @@ System.ArgumentException: the topParser specified is not found in this ebnf
 	}
 	public static Schema Compile(GrammarMatch node)
 	{
+		// build model from AST (model is more compact and navigable in debugger)
+		var transformation1 = new EtoParseToAbstractModel();
+		var abstractModel = transformation1.DoTransform (node);
+		var transformation2 = new SyntaxModelToDatabaseModel();
 		var res = new Schema ();
 		throw new NotImplementedException ("TODO: improve grammar to parse FACT records");
-		var tableDeclarations = from n in node.Matches where n.Name == "table_definition" select n.Matches["table_name"].Text;
-		foreach (var tableName in tableDeclarations)
-		{
-			var t = res.CreateTable();
-			t.Name = tableName;
-		}
 		throw new NotImplementedException ("TODO: columns, references and other parsing");
 		return res;
 	}
