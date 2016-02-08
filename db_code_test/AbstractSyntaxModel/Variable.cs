@@ -4,7 +4,9 @@ namespace db_code_test
 {
 	public class Variable
 	{
-		public string Name {
+		VariableDef VariableDef { get; set; }
+
+		public object Value {
 			get;
 			set;
 		}

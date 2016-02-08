@@ -52,12 +52,22 @@
     <Compile Include="ModelForAbstractDb\Ref.cs" />
     <Compile Include="AbstractSyntaxModel\ClassDef.cs" />
     <Compile Include="AbstractSyntaxModel\AbstractModel.cs" />
-    <Compile Include="AbstractSyntaxModel\Variable.cs" />
     <Compile Include="AbstractSyntaxModel\ObjectDef.cs" />
     <Compile Include="transformations\SyntaxModelToDatabaseModel.cs" />
     <Compile Include="transformations\DatabaseModelToPostgreSQL.cs" />
     <Compile Include="transformations\DatabaseModelToMySQL.cs" />
     <Compile Include="transformations\DatabaseModelToDevelDb.cs" />
+    <Compile Include="AbstractSyntaxModel\MemberDefArray.cs" />
+    <Compile Include="AbstractSyntaxModel\MemberDefSet.cs" />
+    <Compile Include="AbstractSyntaxModel\MemberDefRef.cs" />
+    <Compile Include="AbstractSyntaxModel\MemberDefAbstraction.cs" />
+    <Compile Include="AbstractSyntaxModel\PropertyDefAbstraction.cs" />
+    <Compile Include="AbstractSyntaxModel\MemberDefRaw.cs" />
+    <Compile Include="AbstractSyntaxModel\PropertyDefRaw.cs" />
+    <Compile Include="AbstractSyntaxModel\PropertyDefSet.cs" />
+    <Compile Include="AbstractSyntaxModel\PropertyDefArray.cs" />
+    <Compile Include="AbstractSyntaxModel\VariableDef.cs" />
+    <Compile Include="AbstractSyntaxModel\Variable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

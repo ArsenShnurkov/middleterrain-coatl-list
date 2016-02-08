@@ -3,7 +3,7 @@ using System.Text;
 
 namespace db_code_test
 {
-	public class DatabaseModelToPostgreSQL
+	public class DatabaseModelToMySQL
 	{
 		public string DoTransform(Schema rootNode)
 		{

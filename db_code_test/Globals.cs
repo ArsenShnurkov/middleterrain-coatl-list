@@ -75,9 +75,8 @@ System.ArgumentException: the topParser specified is not found in this ebnf
 		var transformation1 = new EtoParseToAbstractModel();
 		var abstractModel = transformation1.DoTransform (node);
 		var transformation2 = new SyntaxModelToDatabaseModel();
-		var res = new Schema ();
-		throw new NotImplementedException ("TODO: improve grammar to parse FACT records");
-		throw new NotImplementedException ("TODO: columns, references and other parsing");
+		var res = transformation2.DoTransform (abstractModel);
+		throw new NotImplementedException ("TODO: columns, references and other processing");
 		return res;
 	}
 	public struct record

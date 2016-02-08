@@ -7,6 +7,7 @@ namespace db_code_test
 	public class ClassDef
 	{
 		public AbstractModel AbstractModel { get; set; }
+
 		/// <summary>
 		/// Список таблиц, в которых лежат поля объекта
 		/// </summary>
@@ -33,6 +34,14 @@ namespace db_code_test
 					tables.Add (t);
 				}
 				tables [0].Name = value;
+			}
+		}
+		List<MemberDefAbstraction> fields = new List<MemberDefAbstraction>();
+		public IEnumerable<MemberDefAbstraction> Fields
+		{
+			get
+			{
+				return fields;
 			}
 		}
 	}
