@@ -1,0 +1,5 @@
+file := ":", item_list;
+item_list := item_list, ",", identifier
+	| identifier
+	;
+identifier := "A";

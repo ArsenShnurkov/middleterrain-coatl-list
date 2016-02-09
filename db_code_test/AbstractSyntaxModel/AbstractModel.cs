@@ -5,19 +5,39 @@ namespace db_code_test
 {
 	public class AbstractModel
 	{
-		/// <summary>
-		/// Список классов, которые определяются моделью
-		/// </summary>
-		List<ClassDef> classes = new List<ClassDef>();
-		List<ObjectDef> objects = new List<ObjectDef>();
-		List<Variable> variables = new List<Variable>();
-		public ClassDef CreateClassDef()
+		public AbstractModel()
 		{
-			var res = new ClassDef();
-			res.AbstractModel = this;
-			classes.Add(res);
-			return res;
+			classDefCollection = new ClassDefCollectionInAbstractModel(this);
+		}
+
+		ClassDefCollectionInAbstractModel classDefCollection;
+
+		public ClassDefCollectionInAbstractModel Classes
+		{
+			get
+			{
+				return classDefCollection;
+			}
+		}
+
+		List<ObjectDef> objects = new List<ObjectDef>();
+
+		public IEnumerable<ObjectDef> Objects
+		{
+			get
+			{
+				return objects;
+			}
+		}
+
+		List<Variable> variables = new List<Variable>();
+
+		public IEnumerable<Variable> Variables
+		{
+			get
+			{
+				return variables;
+			}
 		}
 	}
 }
-

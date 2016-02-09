@@ -14,61 +14,28 @@ partial class Globals
 {
 	public static void Main (string[] args)
 	{
-		var grammar = LoadFromResource("db_code_test", "Resources", "lang_ws.ebnf");
+		var grammar_def = Globals.LoadFromResource("db_code_test", "Resources", "lang_ws.ebnf");
 		using (var s = new FileStream ("definition.dbt", FileMode.Open)) {
-			var code_to_compile = LoadFromStream (s);
+			var code_to_compile = Globals.LoadFromStream (s);
 			Trace.WriteLine (code_to_compile);
-			Process (grammar, code_to_compile);
+			var match = Globals.Process(grammar_def, code_to_compile);
+
+			var schema = Compile (match);
+
+			using (var o = new FileStream("output.sql", FileMode.OpenOrCreate | FileMode.Truncate))
+			{
+				using (var tv = new StreamWriter(o, Encoding.UTF8))
+				{
+					var generator = new PostgreSQL ();
+					generator.Generate(schema, tv);
+				}
+			}
 		}
 
 		//F1 ();
 		//F2();
 	}
 
-	public static void Process (string grammar_def, string text)
-	{
-		EbnfStyle style = (EbnfStyle)(
-			(uint)EbnfStyle.Iso14977 
-			//& ~(uint) EbnfStyle.WhitespaceSeparator	
-			| (uint) EbnfStyle.EscapeTerminalStrings);
-
-		EbnfGrammar grammar;
-		Grammar parser;
-		try
-		{
-			grammar = new EbnfGrammar(style);
-			parser = grammar.Build(grammar_def, "file");
-		}
-		catch (Exception ex)
-		{
-			Trace.WriteLine (ex.ToString ());
-			/*
-System.ArgumentException: the topParser specified is not found in this ebnf
-  at Eto.Parse.Grammars.EbnfGrammar.Build (System.String bnf, System.String startParserName) [0x00048] in <filename unknown>:0 
-  at Globals.Main (System.String[] args) [0x0002b] in /var/calculate/remote/distfiles/egit-src/SqlParser-on-EtoParse.git/test1/Program.cs:20 
-*/
-			throw;
-		}
-
-		var match = parser.Match(text);
-		if (match.Success == false) {
-			Console.Out.WriteLine ("No luck!");
-		}
-		else {
-			Console.Out.WriteLine ("Success.");
-		}
-
-		var schema = Compile (match);
-
-		using (var o = new FileStream("output.sql", FileMode.OpenOrCreate | FileMode.Truncate))
-		{
-			using (var tv = new StreamWriter(o, Encoding.UTF8))
-			{
-				var generator = new PostgreSQL ();
-				generator.Generate(schema, tv);
-			}
-		}
-	}
 	public static Schema Compile(GrammarMatch node)
 	{
 		// build model from AST (model is more compact and navigable in debugger)

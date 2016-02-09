@@ -33,7 +33,7 @@ namespace db_code_test
 
 		public IEnumerable<Column> Columns { get { return columns; } }
 		/// <summary>
-		/// Создаёт новую колонку, и добавляет её в список колонок этой таблицы
+		/// Creates a new column and adds it into the list fo columns of this table
 		/// </summary>
 		public Column CreateColumn()
 		{

@@ -37,6 +37,9 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="Deveel.Math">
+      <HintPath>..\packages\dmath.1.5.66.201512290\lib\net45\Deveel.Math.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +71,7 @@
     <Compile Include="AbstractSyntaxModel\PropertyDefArray.cs" />
     <Compile Include="AbstractSyntaxModel\VariableDef.cs" />
     <Compile Include="AbstractSyntaxModel\Variable.cs" />
+    <Compile Include="Globals.Parse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -8,6 +8,10 @@ namespace db_code_test
 		List<Table> tables = new List<Table>();
 		public IEnumerable<Table> Tables { get { return tables; } }
 
+		/// <summary>
+		/// Creates table within the list of tables
+		/// </summary>
+		/// <returns>The table.</returns>
 		public Table CreateTable()
 		{
 			var res = new Table();
