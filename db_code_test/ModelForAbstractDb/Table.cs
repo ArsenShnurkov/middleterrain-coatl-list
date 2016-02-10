@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace db_code_test
 {
-	public class Table
+	public partial class Table
 	{
 		public Schema Schema {get; set;}
 		public string Name {get; set;}
@@ -11,16 +11,15 @@ namespace db_code_test
 		/// Список полей объекта
 		/// </summary>
 		List<Column> columns = new List<Column>();
-		List<Ref> refs = new List<Ref>();
 
 		public IEnumerable<Table> Dependencies
 		{ 
 			get
 			{
 				var res = new SortedList<string, Table> ();
-				foreach (var r in refs)
+				foreach (var r in Schema.Refs)
 				{
-					var ft = r.ForeignTable;
+					var ft = r.To.Table;
 					if (res.ContainsKey (ft.Name) == false) {
 						res.Add (ft.Name, ft);
 					}
@@ -41,6 +40,36 @@ namespace db_code_test
 			res.Table = this;
 			columns.Add(res);
 			return res;
+		}
+		public Column CreateColumn(string name, string type)
+		{
+			Column res = CreateColumn ();
+			res.Name = name;
+			res.SpecType = type;
+			return res;
+		}
+		public bool ContainColumn(string name)
+		{
+			for (int i = 0; i < columns.Count; ++i)
+			{
+				if (columns [i].Name == name)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		public Column GetColumn(string name)
+		{
+			for (int i = 0; i < columns.Count; ++i)
+			{
+				var c = columns [i];
+				if (c.Name == name)
+				{
+					return c;
+				}
+			}
+			throw new ArgumentOutOfRangeException (nameof (name));
 		}
 	}
 }

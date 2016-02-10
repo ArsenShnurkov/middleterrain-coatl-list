@@ -72,6 +72,12 @@
     <Compile Include="AbstractSyntaxModel\VariableDef.cs" />
     <Compile Include="AbstractSyntaxModel\Variable.cs" />
     <Compile Include="Globals.Parse.cs" />
+    <Compile Include="transformations\SyntaxModelToDatabaseModel\MapClassesToTables.cs" />
+    <Compile Include="transformations\SyntaxModelToDatabaseModel\MapInheritanceLinks.cs" />
+    <Compile Include="ModelForAbstractDb\Schema.Tables.cs" />
+    <Compile Include="ModelForAbstractDb\Cell.cs" />
+    <Compile Include="ModelForAbstractDb\Row.cs" />
+    <Compile Include="ModelForAbstractDb\Table.Rows.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -86,6 +92,7 @@
     <Folder Include="ModelForAbstractDb\" />
     <Folder Include="ModelForMySQL\" />
     <Folder Include="AbstractSyntaxModel\" />
+    <Folder Include="transformations\SyntaxModelToDatabaseModel\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\lang.ebnf" />

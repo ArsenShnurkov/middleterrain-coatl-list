@@ -4,26 +4,13 @@ namespace db_code_test
 {
 	public class Ref
 	{
-		Column foreignColumn = null;
-		public Column ForeignColumn
+		public Ref (Column from, Column to)
 		{
-			get
-			{
-				return foreignColumn;
-			}
+			this.From = from;
+			this.To = to;
 		}
-		public Table ForeignTable
-		{
-			get
-			{
-				return ForeignColumn.Table;
-			}
-		}
-		/// <summary>
-		/// owner table
-		/// </summary>
-		/// <value>The table.</value>
-		public Table Table { get; protected set; }
+		public Column From { get; set; }
+		public Column To { get; set; }
 	}
 }
 
