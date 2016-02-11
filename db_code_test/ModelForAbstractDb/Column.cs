@@ -19,7 +19,7 @@ namespace db_code_test
 		/// Какой тип имеет
 		/// </summary>
 		/// <value>The type of the spec.</value>
-		public string SpecType {get; set;}
+		public ColumnType SpecType {get; set;}
 
 		/// <summary>
 		/// нагенерировать код для колонки под указанную СУБД

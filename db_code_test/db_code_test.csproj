@@ -46,12 +46,10 @@
     <Compile Include="Globals.cs" />
     <Compile Include="Globals.Resources.cs" />
     <Compile Include="transformations\EtoParseToAbstractModel.cs" />
-    <Compile Include="ModelForPostgreSQL\PostgreSQL.cs" />
     <Compile Include="ModelForAbstractDb\Table.cs" />
     <Compile Include="ModelForAbstractDb\Column.cs" />
     <Compile Include="ModelForAbstractDb\Array.cs" />
     <Compile Include="ModelForAbstractDb\Schema.cs" />
-    <Compile Include="ModelForAbstractDb\TopologicalSort.cs" />
     <Compile Include="ModelForAbstractDb\Ref.cs" />
     <Compile Include="AbstractSyntaxModel\ClassDef.cs" />
     <Compile Include="AbstractSyntaxModel\AbstractModel.cs" />
@@ -78,6 +76,16 @@
     <Compile Include="ModelForAbstractDb\Cell.cs" />
     <Compile Include="ModelForAbstractDb\Row.cs" />
     <Compile Include="ModelForAbstractDb\Table.Rows.cs" />
+    <Compile Include="ModelForAdoNet\DbCommandSequence.cs" />
+    <Compile Include="ModelForAdoNet\NonspecificDbCommand.cs" />
+    <Compile Include="ModelForAdoNet\DbCommandSequence.Generate.cs" />
+    <Compile Include="TopologicalSort.cs" />
+    <Compile Include="ModelForAdoNet\NonspecificDbParameterCollection.cs" />
+    <Compile Include="transformations\EtoParseToAbstractModel\CreateTableDefs.cs" />
+    <Compile Include="transformations\EtoParseToAbstractModel\CopyRawFields.cs" />
+    <Compile Include="transformations\ReflectionToAbstractModel\ReflectionHelper.cs" />
+    <Compile Include="AbstractSyntaxModel\MemberType.cs" />
+    <Compile Include="ModelForAbstractDb\ColumnType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -87,12 +95,12 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="transformations\" />
-    <Folder Include="ModelForPostgreSQL\" />
-    <Folder Include="ModelForDeveelDb\" />
     <Folder Include="ModelForAbstractDb\" />
-    <Folder Include="ModelForMySQL\" />
     <Folder Include="AbstractSyntaxModel\" />
     <Folder Include="transformations\SyntaxModelToDatabaseModel\" />
+    <Folder Include="ModelForAdoNet\" />
+    <Folder Include="transformations\EtoParseToAbstractModel\" />
+    <Folder Include="transformations\ReflectionToAbstractModel\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\lang.ebnf" />

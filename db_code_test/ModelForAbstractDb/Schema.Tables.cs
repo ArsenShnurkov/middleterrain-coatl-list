@@ -64,8 +64,12 @@ namespace db_code_test
 		{
 			var seq1 = topological_then_alphabet_sort (tables);
 			creationSequence = seq1;
-			var seq2 = new List<Table> (seq1.ToArray ()); // create clone
-			seq2.Reverse ();
+			int length = tables.Count;
+			var seq2 = new Table[length]; // create clone
+			foreach (var item in creationSequence)
+			{
+				seq2[--length] = item;
+			}
 			removalSequence = seq2;
 		}
 
@@ -79,9 +83,10 @@ namespace db_code_test
 		/// </remarks>
 		/// <returns>The then alphabet sort.</returns>
 		/// <param name="schema">Schema.</param>
-		protected List<Table> topological_then_alphabet_sort (List<Table> tables)
+		protected IEnumerable<Table> topological_then_alphabet_sort (List<Table> tables)
 		{
-			return new List<Table> ();
+			var res = TopologicalSort.Sort<Table> (tables, table => table.Schema.GetReferencedTables (table));
+			return res;
 		}
 	}
 }

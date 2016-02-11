@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using Eto.Parse;
 
 namespace db_code_test
 {
@@ -31,6 +32,15 @@ namespace db_code_test
 			{
 				return members;
 			}
+		}
+
+		public MemberDefAbstraction CreateMember(Match type, string name, string alias = null)
+		{
+			var member = new MemberDefRaw (this);
+			member.Type = new MemberType(type);
+			member.MemberName = name;
+			members.Add (member);
+			return member;
 		}
 
 		public static List<ClassDef> GetListOfClasses (ClassDef c, bool IncludeSelf = true)

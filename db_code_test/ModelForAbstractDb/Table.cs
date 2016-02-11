@@ -41,7 +41,7 @@ namespace db_code_test
 			columns.Add(res);
 			return res;
 		}
-		public Column CreateColumn(string name, string type)
+		public Column CreateColumn(string name, ColumnType type)
 		{
 			Column res = CreateColumn ();
 			res.Name = name;

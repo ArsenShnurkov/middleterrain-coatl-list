@@ -23,7 +23,9 @@ member_definition := field_definition
 	;
 
 (* "INTEGER" -> "DECIMAL", INTEGERS for keys are implied *)
-field_definition := ( "INTEGER" | "RATIONAL" | "STRING" | "DATE" ), ws, identifier, [ws, "as" , ws, field_name ] ;
+field_definition := raw_type, ws, identifier, [ws, "as" , ws, field_name ] ;
+
+raw_type := "INTEGER" | "RATIONAL" | "STRING" | "DATE";
 
 field_name := identifier;
 

@@ -22,12 +22,14 @@ partial class Globals
 
 			var schema = Compile (match);
 
-			using (var o = new FileStream("output.sql", FileMode.OpenOrCreate | FileMode.Truncate))
+			var transformation3 = new DatabaseModelToPostgreSQL ();
+			var dbScript = transformation3.DoTransform (schema);
+
+			using (var o = new FileStream("../../example_of_output.sql", FileMode.Create))
 			{
 				using (var tv = new StreamWriter(o, Encoding.UTF8))
 				{
-					var generator = new PostgreSQL ();
-					generator.Generate(schema, tv);
+					dbScript.Generate(tv);
 				}
 			}
 		}
@@ -42,9 +44,8 @@ partial class Globals
 		var transformation1 = new EtoParseToAbstractModel();
 		var abstractModel = transformation1.DoTransform (node);
 		var transformation2 = new SyntaxModelToDatabaseModel();
-		var res = transformation2.DoTransform (abstractModel);
-		throw new NotImplementedException ("TODO: columns, references and other processing");
-		return res;
+		var dbModel = transformation2.DoTransform (abstractModel);
+		return dbModel;
 	}
 	public struct record
 	{
