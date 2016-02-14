@@ -11,6 +11,7 @@ namespace db_code_test
 			var dstModel = new AbstractModel ();
 			CreateTableDefs(srcModel, dstModel);
 			CopyRawFields(srcModel, dstModel);
+			CopySetsAndArrays(srcModel, dstModel);
 			return dstModel;
 		}
 	}

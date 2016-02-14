@@ -86,6 +86,8 @@
     <Compile Include="transformations\ReflectionToAbstractModel\ReflectionHelper.cs" />
     <Compile Include="AbstractSyntaxModel\MemberType.cs" />
     <Compile Include="ModelForAbstractDb\ColumnType.cs" />
+    <Compile Include="transformations\SyntaxModelToDatabaseModel\MapSetsOfObjects.cs" />
+    <Compile Include="transformations\EtoParseToAbstractModel\CopySetsAndArrays.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

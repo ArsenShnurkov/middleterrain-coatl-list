@@ -33,8 +33,8 @@ namespace db_code_test
 						var mr = m as MemberDefRaw;
 						if (mr.Type.Text == "RATIONAL")
 						{
-							var ctu = new ColumnType (mr.Type, "INTEGER", "Upper");
-							var ctl = new ColumnType(mr.Type, "INTEGER", "Lower");
+							var ctu = new ColumnType (mr.Type, "INTEGER", "// Upper");
+							var ctl = new ColumnType(mr.Type, "INTEGER", "// Lower");
 							table.CreateColumn(m.MemberName + "_upper", ctu);
 							table.CreateColumn(m.MemberName + "_lower", ctl);
 						}
@@ -42,10 +42,6 @@ namespace db_code_test
 						{
 							/*var column =*/ table.CreateColumn(m.MemberName, new ColumnType(mr.Type));
 						}
-					}
-					else
-					{
-						throw new NotImplementedException("sets and arrays are not implemented yet");
 					}
 				}
 			}

@@ -308,6 +308,10 @@ TABLE permission
 {
 };
 
+TABLE dbobject
+{
+};
+
 TABLE right
 {
 	SET<legal_subject> subject;

@@ -8,8 +8,10 @@ namespace db_code_test
 		public Schema DoTransform(AbstractModel sourceModel)
 		{
 			var destModel = new Schema ();
-			MapClassesToTables (sourceModel, destModel);
-			MapInheritanceLinks (sourceModel, destModel);
+			MapClassesToTables(sourceModel, destModel);
+			MapInheritanceLinks(sourceModel, destModel);
+			MapSetsOfObjects(sourceModel, destModel);
+			MapArraysOfObjects(sourceModel, destModel);
 			return destModel;
 		}
 

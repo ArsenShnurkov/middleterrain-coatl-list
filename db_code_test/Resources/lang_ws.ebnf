@@ -35,9 +35,13 @@ aggregation_definition := identifier, ws, identifier, [ws, "as" , ws, field_name
 		и поэтому надо делать не три таблицы, а только две parent/child *)
 		;
 
-set_definition := "SET", [ws], "<", [ws], identifier, [ws], ">", ws, identifier, [ ws, "as", ws, identifier ];
+set_definition := "SET", [ws], "<", [ws], item_type, [ws], ">", ws, db_name, [ ws, "as", ws, code_name ];
 
-array_definition := "ARRAY", [ws], "<", [ws], identifier, [ws], ">", ws, identifier, [ ws, "as", ws, identifier ];
+array_definition := "ARRAY", [ws], "<", [ws], item_type, [ws], ">", ws, db_name, [ ws, "as", ws, code_name ];
+
+item_type := identifier;
+db_name := identifier;
+code_name := identifier;
 
 list_of_levels := list_of_levels, [ws], ",", [ws], identifier
 	| identifier

@@ -21,5 +21,6 @@
     <None Include="TableNotFound.html" />
     <None Include="Could_not_locate_Razor_Host_Factory_type.html" />
     <None Include="selects.html" />
+    <None Include="todo.htm" />
   </ItemGroup>
 </Project>

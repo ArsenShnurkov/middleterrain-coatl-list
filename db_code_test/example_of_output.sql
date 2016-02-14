@@ -1,5 +1,30 @@
-﻿DROP TABLE IF EXISTS 'default_right';
+﻿DROP TABLE IF EXISTS 'array_vacancy_benefit';
+DROP TABLE IF EXISTS 'array_vacancy_requirement';
+DROP TABLE IF EXISTS 'array_office_legal_subject_contact';
+DROP TABLE IF EXISTS 'array_company_website';
+DROP TABLE IF EXISTS 'array_country_language';
+DROP TABLE IF EXISTS 'array_country_federal_district';
+DROP TABLE IF EXISTS 'array_federal_district_municipal_district';
+DROP TABLE IF EXISTS 'array_notes_predcessors_array_obj_which_can_be_commented';
+DROP TABLE IF EXISTS 'array_language_notation';
+DROP TABLE IF EXISTS 'set_right_permission';
+DROP TABLE IF EXISTS 'set_right_dbobject';
+DROP TABLE IF EXISTS 'set_job_advertisement_distribution_channel_advertisement_fact';
+DROP TABLE IF EXISTS 'set_company_office';
+DROP TABLE IF EXISTS 'set_company_vacancy';
+DROP TABLE IF EXISTS 'set_company_ownership_share';
+DROP TABLE IF EXISTS 'set_government_executor';
+DROP TABLE IF EXISTS 'set_legal_subject_obj_which_can_be_owned';
+DROP TABLE IF EXISTS 'set_legal_subject_right';
+DROP TABLE IF EXISTS 'set_obj_which_can_be_owned_legal_subject';
+DROP TABLE IF EXISTS 'set_territory_separation_line';
+DROP TABLE IF EXISTS 'set_dimension_formula_dimension_formula_item';
+DROP TABLE IF EXISTS 'set_translation_set_translation_unit';
+DROP TABLE IF EXISTS 'set_notation_word_in_language_and_notation';
+DROP TABLE IF EXISTS 'set_notation_language';
+DROP TABLE IF EXISTS 'default_right';
 DROP TABLE IF EXISTS 'right';
+DROP TABLE IF EXISTS 'dbobject';
 DROP TABLE IF EXISTS 'permission';
 DROP TABLE IF EXISTS 'advertisement_fact';
 DROP TABLE IF EXISTS 'job_advertisement_distribution_channel';
@@ -47,11 +72,14 @@ DROP TABLE IF EXISTS 'language';
 DROP TABLE IF EXISTS 'notation';
 
 CREATE TABLE notation (
-    notation_pk INTEGER
+    notation_pk INTEGER,
+    set_fk INTEGER,
+    set_fk INTEGER
 );
 
 CREATE TABLE language (
-    language_pk INTEGER
+    language_pk INTEGER,
+    array_fk INTEGER
 );
 
 CREATE TABLE word_in_language_and_notation (
@@ -64,7 +92,8 @@ CREATE TABLE translation_unit (
 );
 
 CREATE TABLE translation_set (
-    translation_set_pk INTEGER
+    translation_set_pk INTEGER,
+    set_fk INTEGER
 );
 
 CREATE TABLE obj_which_can_be_named_types (
@@ -105,11 +134,13 @@ CREATE TABLE notes (
 );
 
 CREATE TABLE notes_predcessors_array (
-    notes_predcessors_array_pk INTEGER
+    notes_predcessors_array_pk INTEGER,
+    array_fk INTEGER
 );
 
 CREATE TABLE dimension_formula (
-    dimension_formula_pk INTEGER
+    dimension_formula_pk INTEGER,
+    set_fk INTEGER
 );
 
 CREATE TABLE dimension_formula_item (
@@ -135,7 +166,8 @@ CREATE TABLE territory_types (
 CREATE TABLE territory (
     territory_pk INTEGER,
     obj_which_can_be_named_fk INTEGER,
-    territory_types_fk INTEGER
+    territory_types_fk INTEGER,
+    set_fk INTEGER
 );
 
 CREATE TABLE municipal_district (
@@ -145,12 +177,15 @@ CREATE TABLE municipal_district (
 
 CREATE TABLE federal_district (
     federal_district_pk INTEGER,
-    territory_fk INTEGER
+    territory_fk INTEGER,
+    array_fk INTEGER
 );
 
 CREATE TABLE country (
     country_pk INTEGER,
-    territory_fk INTEGER
+    territory_fk INTEGER,
+    array_fk INTEGER,
+    array_fk INTEGER
 );
 
 CREATE TABLE obj_which_can_be_owned_types (
@@ -162,7 +197,8 @@ CREATE TABLE obj_which_can_be_owned (
     obj_which_can_be_owned_pk INTEGER,
     description VARCHAR,
     obj_which_can_be_commented_fk INTEGER,
-    obj_which_can_be_owned_types_fk INTEGER
+    obj_which_can_be_owned_types_fk INTEGER,
+    set_fk INTEGER
 );
 
 CREATE TABLE executor_types (
@@ -185,7 +221,9 @@ CREATE TABLE legal_subject (
     legal_subject_pk INTEGER,
     obj_which_can_be_commented_fk INTEGER,
     obj_which_can_be_named_fk INTEGER,
-    legal_subject_types_fk INTEGER
+    legal_subject_types_fk INTEGER,
+    set_fk INTEGER,
+    set_fk INTEGER
 );
 
 CREATE TABLE human (
@@ -203,7 +241,8 @@ CREATE TABLE ai (
 CREATE TABLE government (
     government_pk INTEGER,
     country_code VARCHAR,
-    obj_which_can_be_named_fk INTEGER
+    obj_which_can_be_named_fk INTEGER,
+    set_fk INTEGER
 );
 
 CREATE TABLE website (
@@ -220,7 +259,11 @@ CREATE TABLE company (
     government_code VARCHAR,
     description VARCHAR,
     obj_which_can_be_owned_fk INTEGER,
-    legal_subject_fk INTEGER
+    legal_subject_fk INTEGER,
+    set_fk INTEGER,
+    set_fk INTEGER,
+    set_fk INTEGER,
+    array_fk INTEGER
 );
 
 CREATE TABLE ownership_share (
@@ -246,7 +289,8 @@ CREATE TABLE office (
     office_name VARCHAR,
     office_address VARCHAR,
     description VARCHAR,
-    obj_which_can_be_owned_fk INTEGER
+    obj_which_can_be_owned_fk INTEGER,
+    array_fk INTEGER
 );
 
 CREATE TABLE currency (
@@ -278,13 +322,16 @@ CREATE TABLE vacancy (
     compensation_upper DECIMAL,
     compensation_lower DECIMAL,
     official_url VARCHAR,
-    obj_which_can_be_commented_fk INTEGER
+    obj_which_can_be_commented_fk INTEGER,
+    array_fk INTEGER,
+    array_fk INTEGER
 );
 
 CREATE TABLE job_advertisement_distribution_channel (
     job_advertisement_distribution_channel_pk INTEGER,
     description VARCHAR,
-    obj_which_can_be_owned_fk INTEGER
+    obj_which_can_be_owned_fk INTEGER,
+    set_fk INTEGER
 );
 
 CREATE TABLE advertisement_fact (
@@ -297,10 +344,145 @@ CREATE TABLE permission (
     permission_pk INTEGER
 );
 
+CREATE TABLE dbobject (
+    dbobject_pk INTEGER
+);
+
 CREATE TABLE right (
-    right_pk INTEGER
+    right_pk INTEGER,
+    set_fk INTEGER,
+    set_fk INTEGER
 );
 
 CREATE TABLE default_right (
     default_right_pk INTEGER
+);
+
+CREATE TABLE set_notation_language (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_notation_word_in_language_and_notation (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_translation_set_translation_unit (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_dimension_formula_dimension_formula_item (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_territory_separation_line (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_obj_which_can_be_owned_legal_subject (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_legal_subject_right (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_legal_subject_obj_which_can_be_owned (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_government_executor (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_company_ownership_share (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_company_vacancy (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_company_office (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_job_advertisement_distribution_channel_advertisement_fact (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_right_dbobject (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE set_right_permission (
+    set_id INTEGER,
+    item_fk INTEGER
+);
+
+CREATE TABLE array_language_notation (
+    set_id INTEGER,
+    item_num DECIMAL,
+    item_fk INTEGER
+);
+
+CREATE TABLE array_notes_predcessors_array_obj_which_can_be_commented (
+    set_id INTEGER,
+    item_num DECIMAL,
+    item_fk INTEGER
+);
+
+CREATE TABLE array_federal_district_municipal_district (
+    set_id INTEGER,
+    item_num DECIMAL,
+    item_fk INTEGER
+);
+
+CREATE TABLE array_country_federal_district (
+    set_id INTEGER,
+    item_num DECIMAL,
+    item_fk INTEGER
+);
+
+CREATE TABLE array_country_language (
+    set_id INTEGER,
+    item_num DECIMAL,
+    item_fk INTEGER
+);
+
+CREATE TABLE array_company_website (
+    set_id INTEGER,
+    item_num DECIMAL,
+    item_fk INTEGER
+);
+
+CREATE TABLE array_office_legal_subject_contact (
+    set_id INTEGER,
+    item_num DECIMAL,
+    item_fk INTEGER
+);
+
+CREATE TABLE array_vacancy_requirement (
+    set_id INTEGER,
+    item_num DECIMAL,
+    item_fk INTEGER
+);
+
+CREATE TABLE array_vacancy_benefit (
+    set_id INTEGER,
+    item_num DECIMAL,
+    item_fk INTEGER
 );

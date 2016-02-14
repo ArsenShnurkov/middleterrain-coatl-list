@@ -43,6 +43,24 @@ namespace db_code_test
 			return member;
 		}
 
+		public MemberDefAbstraction CreateSetMember(ClassDef itemType, string name, string alias = null)
+		{
+			var member = new MemberDefSet (this);
+			member.ItemType = itemType;
+			member.MemberName = name;
+			members.Add (member);
+			return member;
+		}
+
+		public MemberDefAbstraction CreateArrayMember(ClassDef itemType, string name, string alias = null)
+		{
+			var member = new MemberDefArray (this);
+			member.ItemType = itemType;
+			member.MemberName = name;
+			members.Add (member);
+			return member;
+		}
+
 		public static List<ClassDef> GetListOfClasses (ClassDef c, bool IncludeSelf = true)
 		{
 			List<ClassDef> res = new List<ClassDef> ();
