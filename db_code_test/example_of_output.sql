@@ -73,13 +73,13 @@ DROP TABLE IF EXISTS 'notation';
 
 CREATE TABLE notation (
     notation_pk INTEGER,
-    set_fk INTEGER,
-    set_fk INTEGER
+    language_set_fk INTEGER,
+    word_in_language_and_notation_set_fk INTEGER
 );
 
 CREATE TABLE language (
     language_pk INTEGER,
-    array_fk INTEGER
+    notation_array_fk INTEGER
 );
 
 CREATE TABLE word_in_language_and_notation (
@@ -93,7 +93,7 @@ CREATE TABLE translation_unit (
 
 CREATE TABLE translation_set (
     translation_set_pk INTEGER,
-    set_fk INTEGER
+    translation_unit_set_fk INTEGER
 );
 
 CREATE TABLE obj_which_can_be_named_types (
@@ -135,12 +135,12 @@ CREATE TABLE notes (
 
 CREATE TABLE notes_predcessors_array (
     notes_predcessors_array_pk INTEGER,
-    array_fk INTEGER
+    obj_which_can_be_commented_array_fk INTEGER
 );
 
 CREATE TABLE dimension_formula (
     dimension_formula_pk INTEGER,
-    set_fk INTEGER
+    dimension_formula_item_set_fk INTEGER
 );
 
 CREATE TABLE dimension_formula_item (
@@ -167,7 +167,7 @@ CREATE TABLE territory (
     territory_pk INTEGER,
     obj_which_can_be_named_fk INTEGER,
     territory_types_fk INTEGER,
-    set_fk INTEGER
+    separation_line_set_fk INTEGER
 );
 
 CREATE TABLE municipal_district (
@@ -178,14 +178,14 @@ CREATE TABLE municipal_district (
 CREATE TABLE federal_district (
     federal_district_pk INTEGER,
     territory_fk INTEGER,
-    array_fk INTEGER
+    municipal_district_array_fk INTEGER
 );
 
 CREATE TABLE country (
     country_pk INTEGER,
     territory_fk INTEGER,
-    array_fk INTEGER,
-    array_fk INTEGER
+    federal_district_array_fk INTEGER,
+    language_array_fk INTEGER
 );
 
 CREATE TABLE obj_which_can_be_owned_types (
@@ -198,7 +198,7 @@ CREATE TABLE obj_which_can_be_owned (
     description VARCHAR,
     obj_which_can_be_commented_fk INTEGER,
     obj_which_can_be_owned_types_fk INTEGER,
-    set_fk INTEGER
+    legal_subject_set_fk INTEGER
 );
 
 CREATE TABLE executor_types (
@@ -222,8 +222,8 @@ CREATE TABLE legal_subject (
     obj_which_can_be_commented_fk INTEGER,
     obj_which_can_be_named_fk INTEGER,
     legal_subject_types_fk INTEGER,
-    set_fk INTEGER,
-    set_fk INTEGER
+    right_set_fk INTEGER,
+    obj_which_can_be_owned_set_fk INTEGER
 );
 
 CREATE TABLE human (
@@ -242,7 +242,7 @@ CREATE TABLE government (
     government_pk INTEGER,
     country_code VARCHAR,
     obj_which_can_be_named_fk INTEGER,
-    set_fk INTEGER
+    executor_set_fk INTEGER
 );
 
 CREATE TABLE website (
@@ -260,10 +260,10 @@ CREATE TABLE company (
     description VARCHAR,
     obj_which_can_be_owned_fk INTEGER,
     legal_subject_fk INTEGER,
-    set_fk INTEGER,
-    set_fk INTEGER,
-    set_fk INTEGER,
-    array_fk INTEGER
+    ownership_share_set_fk INTEGER,
+    vacancy_set_fk INTEGER,
+    office_set_fk INTEGER,
+    website_array_fk INTEGER
 );
 
 CREATE TABLE ownership_share (
@@ -290,7 +290,7 @@ CREATE TABLE office (
     office_address VARCHAR,
     description VARCHAR,
     obj_which_can_be_owned_fk INTEGER,
-    array_fk INTEGER
+    legal_subject_contact_array_fk INTEGER
 );
 
 CREATE TABLE currency (
@@ -323,15 +323,15 @@ CREATE TABLE vacancy (
     compensation_lower DECIMAL,
     official_url VARCHAR,
     obj_which_can_be_commented_fk INTEGER,
-    array_fk INTEGER,
-    array_fk INTEGER
+    requirement_array_fk INTEGER,
+    benefit_array_fk INTEGER
 );
 
 CREATE TABLE job_advertisement_distribution_channel (
     job_advertisement_distribution_channel_pk INTEGER,
     description VARCHAR,
     obj_which_can_be_owned_fk INTEGER,
-    set_fk INTEGER
+    advertisement_fact_set_fk INTEGER
 );
 
 CREATE TABLE advertisement_fact (
@@ -350,8 +350,8 @@ CREATE TABLE dbobject (
 
 CREATE TABLE right (
     right_pk INTEGER,
-    set_fk INTEGER,
-    set_fk INTEGER
+    dbobject_set_fk INTEGER,
+    permission_set_fk INTEGER
 );
 
 CREATE TABLE default_right (
@@ -360,77 +360,77 @@ CREATE TABLE default_right (
 
 CREATE TABLE set_notation_language (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_notation_word_in_language_and_notation (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_translation_set_translation_unit (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_dimension_formula_dimension_formula_item (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_territory_separation_line (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_obj_which_can_be_owned_legal_subject (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_legal_subject_right (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_legal_subject_obj_which_can_be_owned (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_government_executor (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_company_ownership_share (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_company_vacancy (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_company_office (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_job_advertisement_distribution_channel_advertisement_fact (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_right_dbobject (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE set_right_permission (
     set_id INTEGER,
-    item_fk INTEGER
+    db_code_test.ClassDefInCollectionInAbstractModel_fk INTEGER
 );
 
 CREATE TABLE array_language_notation (

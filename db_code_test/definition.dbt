@@ -173,7 +173,7 @@ TABLE ai : obj_which_can_be_commented, executor // but not a legal subject and c
 TABLE government : obj_which_can_be_named
 {
 	STRING country_code;
-	SET<executor> members; // AI's can govern the country
+	SET<executor> members;
 };
 
 TABLE website : obj_which_can_be_owned
@@ -304,22 +304,22 @@ TABLE advertisement_fact : obj_which_can_be_commented
 };
 
 /* Access right scheme */
-TABLE permission
+NONGUARDED TABLE permission
 {
 };
 
-TABLE dbobject
+NONGUARDED TABLE dbobject
 {
 };
 
-TABLE right
+NONGUARDED TABLE right
 {
 	SET<legal_subject> subject;
 	SET<dbobject> object;
 	SET<permission> right;
 };
 
-TABLE default_right
+NONGUARDED TABLE default_right
 {
 	SET<legal_subject> subject;
 	SET<dbobject> object;

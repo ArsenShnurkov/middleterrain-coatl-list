@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace db_code_test
 {
-	public partial class SyntaxModelToDatabaseModel
+	public partial class AbstractModelToDatabaseModel
 	{
 		/// <summary>
 		/// Create tables, one for each class
@@ -40,11 +40,11 @@ namespace db_code_test
 			var set_id = new ColumnType (null, "KEY", "// Set identifier");
 			var set_item = new ColumnType(null, "KEY", "// Set element");
 			table.CreateColumn("set_id", set_id);
-			table.CreateColumn("item" + "_fk", set_item);
+			table.CreateColumn(item + "_fk", set_item);
 			// column in container to select a set
 			var containerTable = destModel.GetTable(container.TableName);
 			var set_fk = new ColumnType (null, "KEY", "// Set identifier");
-			containerTable.CreateColumn("set_fk", set_fk);
+			containerTable.CreateColumn(item.TableName + "_set_fk", set_fk);
 		}
 
 		public void MapArraysOfObjects (AbstractModel sourceModel, Schema destModel)
@@ -82,7 +82,7 @@ namespace db_code_test
 			// column in container to select a set
 			var containerTable = destModel.GetTable(container.TableName);
 			var set_fk = new ColumnType (null, "KEY", "// Array identifier");
-			containerTable.CreateColumn("array_fk", set_fk);
+			containerTable.CreateColumn(item.TableName + "_array_fk", set_fk);
 		}
 	}
 }

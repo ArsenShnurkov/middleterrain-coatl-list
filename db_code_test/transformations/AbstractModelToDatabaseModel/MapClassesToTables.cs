@@ -3,7 +3,7 @@ using Deveel.Math;
 
 namespace db_code_test
 {
-	public partial class SyntaxModelToDatabaseModel
+	public partial class AbstractModelToDatabaseModel
 	{
 		/// <summary>
 		/// Create tables, one for each class

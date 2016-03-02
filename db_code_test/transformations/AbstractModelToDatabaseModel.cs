@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace db_code_test
 {
-	public partial class SyntaxModelToDatabaseModel
+	public partial class AbstractModelToDatabaseModel
 	{
 		public Schema DoTransform(AbstractModel sourceModel)
 		{

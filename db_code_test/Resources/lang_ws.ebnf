@@ -1,7 +1,9 @@
 file := [ws], ( table_definition | fact_definition), {[ws], (table_definition | fact_definition ) }, [ws];
 
-table_definition := "TABLE", ws, table_name, [ws], [ inheritance_specification, [ws]] , "{", [ws], [ semicolon_separated_field_list, [ws] ], "}" , [ws], ";" ;
+table_definition := [access_modifier, ws], "TABLE", ws, table_name, [ws], [ inheritance_specification, [ws]] , "{", [ws], [ semicolon_separated_field_list, [ws] ], "}" , [ws], ";" ;
 fact_definition := "FACT", [ ws, identifier, [ws], "="], ws, identifier, [ws], object_initializer, [ws], ";" ;
+
+access_modifier := "NONGUARDED" | "NONVERSIONED";
 
 table_name := identifier, [ ws, "as" , ws, class_name ];
 
@@ -83,10 +85,7 @@ comment_unit_3 := ( ac - cr ) - lf ;
 line_comment := "//", { comment_unit_3 }, line_separator_raw;
 comment := line_comment | block_comment;
 
-symbol := "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">"
-       | "=" | "|" | "." | "," | ";"
-       | "*" | ":" | "-" | "?" | "_"
-       ;
+rightwards_open_headed_arrow := "\x21FE" ; (* ⇾ *)
 
 tab := "\x0009" ; (* \t *)
 lf := "\x000A" ; (* \r *)

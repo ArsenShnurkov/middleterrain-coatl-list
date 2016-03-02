@@ -22,5 +22,8 @@
     <None Include="Could_not_locate_Razor_Host_Factory_type.html" />
     <None Include="selects.html" />
     <None Include="todo.htm" />
+    <None Include="..\db_code_test\example_of_output.sql">
+      <Link>example_of_output.sql</Link>
+    </None>
   </ItemGroup>
 </Project>

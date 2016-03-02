@@ -43,7 +43,7 @@ partial class Globals
 		// build model from AST (model is more compact and navigable in debugger)
 		var transformation1 = new EtoParseToAbstractModel();
 		var abstractModel = transformation1.DoTransform (node);
-		var transformation2 = new SyntaxModelToDatabaseModel();
+		var transformation2 = new AbstractModelToDatabaseModel();
 		var dbModel = transformation2.DoTransform (abstractModel);
 		return dbModel;
 	}
