@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Как залить скрипт</title>
+</head>
+<body>
+<h1>Как залить скрипт</h1>
+
+<h2>PostgreSQL + bash</h2>
+выполнить скрипт:
+<br />
+psql --host=... --port=5432 --file=...
+<br />
+выполнить команду:
+<br />
+psql --host=... --port=5432 --command="..."
+<br />
+--database=
+<br />
+postgresql://dbmaster:5433/mydb?sslmode=require
+<br />
+<br />
+--username=postgres
+<br />
+--version
+<br />
+<br />
+# psql --username=postgres --dbname="postgresql://localhost:5432/?sslmode=require"
+<br />
+psql: server does not support SSL, but SSL was required
+<br />
+# \conninfo
+<br />
+You are connected to database "postgres" as user "postgres" on host "localhost" at port "5432".
+<br />
+<br />
+CREATE DATABASE test_database;
+<br />
+CREATE USER test_user WITH password 'qwerty';
+<br />
+GRANT ALL privileges ON DATABASE test_database TO test_user;
+<br />
+<br />
+There is a second kind of identifier: the delimited identifier or quoted identifier.
+It is formed by enclosing an arbitrary sequence of characters in double-quotes (").
+A delimited identifier is always an identifier, never a key word. So "select" could be used to refer to a column or table named "select",
+whereas an unquoted select would be taken as a key word and would therefore provoke
+a parse error when used where a table or column name is expected.
+<br />
+<br />
+<br />
+http://tldp.org/LDP/abs/html/exit-status.html
+<br />
+if [ $? -ne 0 ]; then
+<br />
+echo ERROR
+<br />
+else
+<br />
+echo OK
+<br />
+fi 
+<br />
+<br />
+http://mnorin.com/bash-kak-obojtis-bez-goto.html
+<br />
+exit [n]
+<br />
+   Cause  the  shell  to exit with a status of n.  If n is omitted,
+   the exit status is that of the last command executed.  A trap on
+   EXIT is executed before the shell terminates. 
+<br />
+Ну то есть скрипт будет башевый, примерно такой:
+<pre><xmp>
+#!/bin/bash
+
+DATABASE=mc_list
+USERNAME=test
+psql --username=postgres --dbname="postgresql://localhost:5432/" --command="CREATE DATABASE ${DATABASE};" || exit
+psql --username=postgres --dbname="postgresql://localhost:5432/" --command="CREATE USER ${USERNAME};" || exit
+psql --username=postgres --dbname="postgresql://localhost:5432/" --command="GRANT ALL privileges ON DATABASE ${DATABASE} TO ${USERNAME};" || exit
+psql --username=postgres --dbname="postgresql://localhost:5432/" --file=$1 || exit
+echo "script execution completed successfully"
+</xmp></pre>
+
+</body>
+</html>
+

@@ -22,7 +22,7 @@ namespace db_code_test
 		public void Generate_Drop_Statement(DbCommandSequence commands, Table t)
 		{
 			var statement = new StringBuilder ();
-			statement.AppendFormat ("DROP TABLE IF EXISTS '{0}';", t.Name);
+			statement.AppendFormat ("DROP TABLE IF EXISTS \"{0}\";", t.Name);
 			commands.CreateCommand (statement.ToString());
 		}
 
@@ -35,10 +35,10 @@ namespace db_code_test
 				{
 					columnsList.AppendFormat(",{0}", Environment.NewLine);
 				}
-				columnsList.AppendFormat ("{0}{1} {2}", new string(' ',4), c.Name, GetNativeType (c.SpecType));
+				columnsList.AppendFormat ("{0}\"{1}\" {2}", new string(' ',4), c.Name, GetNativeType (c.SpecType));
 			}
 			var statement = new StringBuilder ();
-			statement.AppendFormat ("{2}CREATE TABLE {0} ({2}{1}{2});", t.Name, columnsList.ToString(), Environment.NewLine);
+			statement.AppendFormat ("{2}CREATE TABLE \"{0}\" ({2}{1}{2});", t.Name, columnsList.ToString(), Environment.NewLine);
 			commands.CreateCommand (statement.ToString());
 		}
 

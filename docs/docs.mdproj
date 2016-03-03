@@ -25,5 +25,6 @@
     <None Include="..\db_code_test\example_of_output.sql">
       <Link>example_of_output.sql</Link>
     </None>
+    <None Include="how-to-fill-script.htm" />
   </ItemGroup>
 </Project>
