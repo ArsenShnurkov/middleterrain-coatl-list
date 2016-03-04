@@ -17,6 +17,20 @@ namespace db_code_test
 			refs.Add (r);
 		}
 
+		List<Sequence> sequences = new List<Sequence>();
+		public IEnumerable<Sequence> Sequences { get { return sequences; } }
+
+		public Sequence CreateSequence(string name = null)
+		{
+			var res = new Sequence();
+			res.Schema = this;
+			if (false == string.IsNullOrWhiteSpace(name)) {
+				res.Name = name;
+			}
+			sequences.Add(res);
+			return res;
+		}
+
 		public IEnumerable<Table> GetReferencedTables(Table detail)
 		{
 			var res = new List<Table> ();

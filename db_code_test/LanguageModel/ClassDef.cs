@@ -128,7 +128,7 @@ namespace db_code_test
 	public class ClassDefInCollectionInAbstractModel : ClassDef
 	{
 		public ClassDefCollectionInAbstractModel Collection { get; set; }
-		public AbstractModel AbstractModel
+		public LanguageModel AbstractModel
 		{
 			get
 			{
@@ -207,12 +207,12 @@ namespace db_code_test
 	}
 	public class ClassDefCollectionInAbstractModel : ClassDefCollection
 	{
-		public ClassDefCollectionInAbstractModel(AbstractModel abstractModel)
+		public ClassDefCollectionInAbstractModel(LanguageModel abstractModel)
 		{
 			this.AbstractModel = abstractModel;
 		}
 
-		public AbstractModel AbstractModel { get; set; }
+		public LanguageModel AbstractModel { get; set; }
 
 		public override ClassDef CreateClassDef()
 		{

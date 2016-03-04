@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace db_code_test
 {
-	public partial class EtoParseToAbstractModel
+	public partial class EtoParseToLanguageModel
 	{
-		public void CopySetsAndArrays(GrammarMatch sourceModel, AbstractModel destModel)
+		public void CopySetsAndArrays(GrammarMatch sourceModel, LanguageModel destModel)
 		{
 			foreach (var c in destModel.Classes)
 			{
@@ -21,7 +21,7 @@ namespace db_code_test
 				CopySetsAndArrays (members_only, destModel, c);
 			}
 		}
-		void CopySetsAndArrays(IEnumerable<Match> m, AbstractModel destModel, ClassDef c)
+		void CopySetsAndArrays(IEnumerable<Match> m, LanguageModel destModel, ClassDef c)
 		{
 			foreach (var member_definition in m)
 			{

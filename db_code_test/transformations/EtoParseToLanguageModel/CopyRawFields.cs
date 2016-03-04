@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace db_code_test
 {
-	public partial class EtoParseToAbstractModel
+	public partial class EtoParseToLanguageModel
 	{
-		public void CopyRawFields(GrammarMatch sourceModel, AbstractModel destModel)
+		public void CopyRawFields(GrammarMatch sourceModel, LanguageModel destModel)
 		{
 			foreach (var c in destModel.Classes)
 			{

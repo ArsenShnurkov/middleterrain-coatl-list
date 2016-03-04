@@ -34,6 +34,11 @@ namespace db_code_test
 		/// <summary>
 		/// Creates a new column and adds it into the list fo columns of this table
 		/// </summary>
+		public bool IsPrimaryKey(string name)
+		{
+			bool res = name.EndsWith ("_pk");
+			return res;
+		}
 		public Column CreateColumn()
 		{
 			var res = new Column();

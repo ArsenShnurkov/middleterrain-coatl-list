@@ -41,7 +41,7 @@ partial class Globals
 	public static Schema Compile(GrammarMatch node)
 	{
 		// build model from AST (model is more compact and navigable in debugger)
-		var transformation1 = new EtoParseToAbstractModel();
+		var transformation1 = new EtoParseToLanguageModel();
 		var abstractModel = transformation1.DoTransform (node);
 		var transformation2 = new AbstractModelToDatabaseModel();
 		var dbModel = transformation2.DoTransform (abstractModel);

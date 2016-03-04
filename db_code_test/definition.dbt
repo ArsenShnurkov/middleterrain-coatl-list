@@ -308,8 +308,16 @@ NONGUARDED TABLE permission
 {
 };
 
+/* такой (абстрактный?) класс, который наследуется всеми */
 NONGUARDED TABLE dbobject
 {
+};
+
+/* общий справочник классов = список классов, отображенных на таблицы и последовательности */
+NONGUARDED TABLE dbclass /*: dbobject*/
+{
+	/* INTEGER pk; */
+	STRING name_of_class; /* просто в качестве документации */
 };
 
 NONGUARDED TABLE right

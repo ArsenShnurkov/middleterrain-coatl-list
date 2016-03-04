@@ -4,9 +4,9 @@ using Eto.Parse;
 
 namespace db_code_test
 {
-	public partial class EtoParseToAbstractModel
+	public partial class EtoParseToLanguageModel
 	{
-		public void CreateTableDefs(GrammarMatch srcModel, AbstractModel dstModel)
+		public void CreateTableDefs(GrammarMatch srcModel, LanguageModel dstModel)
 		{
 			// create class defs
 			var tableDeclarations = from n in srcModel.Matches where n.Name == "table_definition" select n.Matches["table_name"].Text;

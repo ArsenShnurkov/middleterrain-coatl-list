@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace db_code_test
 {
-	public class AbstractModel
+	public class LanguageModel
 	{
-		public AbstractModel()
+		public LanguageModel()
 		{
 			classDefCollection = new ClassDefCollectionInAbstractModel(this);
 		}

@@ -10,23 +10,31 @@ namespace db_code_test
 			var dstModel = new DbCommandSequence ();
 			foreach (var t in srcModel.RemovalSequence)
 			{
-				Generate_Drop_Statement (dstModel, t);
+				Generate_Statement_Table_Drop (dstModel, t);
+			}
+			foreach (var seq in srcModel.Sequences)
+			{
+				Generate_Statement_Sequence_Drop (dstModel, seq);
+			}
+			foreach (var seq in srcModel.Sequences)
+			{
+				Generate_Statement_Sequence_Create (dstModel, seq);
 			}
 			foreach (var t in srcModel.CreationSequence)
 			{
-				Generate_Create_Statement (dstModel, t);
+				Generate_Statement_Table_Create (dstModel, t);
 			}
 			return dstModel;
 		}
 
-		public void Generate_Drop_Statement(DbCommandSequence commands, Table t)
+		public void Generate_Statement_Table_Drop(DbCommandSequence commands, Table t)
 		{
 			var statement = new StringBuilder ();
 			statement.AppendFormat ("DROP TABLE IF EXISTS \"{0}\";", t.Name);
 			commands.CreateCommand (statement.ToString());
 		}
 
-		public void Generate_Create_Statement(DbCommandSequence commands, Table t)
+		public void Generate_Statement_Table_Create(DbCommandSequence commands, Table t)
 		{
 			var columnsList = new StringBuilder ();
 			foreach (var c in t.Columns)
@@ -35,10 +43,29 @@ namespace db_code_test
 				{
 					columnsList.AppendFormat(",{0}", Environment.NewLine);
 				}
-				columnsList.AppendFormat ("{0}\"{1}\" {2}", new string(' ',4), c.Name, GetNativeType (c.SpecType));
+				var tab = new string (' ', 4);
+				if (t.IsPrimaryKey(c.Name)) {
+					columnsList.AppendFormat ("{0}\"{1}\" {2} PRIMARY KEY DEFAULT NEXTVAL('{3}')", tab, c.Name, GetNativeType (c.SpecType), t.Name + "_ids");
+				} else {
+					columnsList.AppendFormat ("{0}\"{1}\" {2}", tab, c.Name, GetNativeType (c.SpecType));
+				}
 			}
 			var statement = new StringBuilder ();
 			statement.AppendFormat ("{2}CREATE TABLE \"{0}\" ({2}{1}{2});", t.Name, columnsList.ToString(), Environment.NewLine);
+			commands.CreateCommand (statement.ToString());
+		}
+
+		public void Generate_Statement_Sequence_Create(DbCommandSequence commands, Sequence obj)
+		{
+			var statement = new StringBuilder ();
+			statement.AppendFormat ("{0}CREATE SEQUENCE \"{1}\" increment by {3} start with {2};", Environment.NewLine, obj.Name, obj.Start, obj.Step);
+			commands.CreateCommand (statement.ToString());
+		}
+
+		public void Generate_Statement_Sequence_Drop(DbCommandSequence commands, Sequence obj)
+		{
+			var statement = new StringBuilder ();
+			statement.AppendFormat ("{0}DROP SEQUENCE IF EXISTS \"{1}\";", Environment.NewLine, obj.Name);
 			commands.CreateCommand (statement.ToString());
 		}
 

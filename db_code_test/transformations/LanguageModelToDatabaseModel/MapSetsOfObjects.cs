@@ -11,7 +11,7 @@ namespace db_code_test
 		/// </summary>
 		/// <param name="sourceModel">Source model.</param>
 		/// <param name="destModel">Destination model.</param>
-		public void MapSetsOfObjects (AbstractModel sourceModel, Schema destModel)
+		public void MapSetsOfObjects (LanguageModel sourceModel, Schema destModel)
 		{
 			var listOfSets = new List<ClassDef> (); 
 			foreach (var classDef in sourceModel.Classes)
@@ -47,7 +47,7 @@ namespace db_code_test
 			containerTable.CreateColumn(item.TableName + "_set_fk", set_fk);
 		}
 
-		public void MapArraysOfObjects (AbstractModel sourceModel, Schema destModel)
+		public void MapArraysOfObjects (LanguageModel sourceModel, Schema destModel)
 		{
 			var listOfArrays = new List<ClassDef> (); 
 			foreach (var classDef in sourceModel.Classes)

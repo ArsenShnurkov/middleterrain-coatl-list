@@ -14,7 +14,7 @@ namespace db_code_test
 		/// </summary>
 		/// <param name="sourceModel">Source model.</param>
 		/// <param name="destModel">Destination model.</param>
-		public void MapInheritanceLinks (AbstractModel sourceModel, Schema destModel)
+		public void MapInheritanceLinks (LanguageModel sourceModel, Schema destModel)
 		{
 			foreach (var child in sourceModel.Classes)
 			{

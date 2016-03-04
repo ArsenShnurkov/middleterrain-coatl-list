@@ -4,11 +4,11 @@ using Eto.Parse;
 
 namespace db_code_test
 {
-	public partial class EtoParseToAbstractModel
+	public partial class EtoParseToLanguageModel
 	{
-		public AbstractModel DoTransform(GrammarMatch srcModel)
+		public LanguageModel DoTransform(GrammarMatch srcModel)
 		{
-			var dstModel = new AbstractModel ();
+			var dstModel = new LanguageModel ();
 			CreateTableDefs(srcModel, dstModel);
 			CopyRawFields(srcModel, dstModel);
 			CopySetsAndArrays(srcModel, dstModel);
