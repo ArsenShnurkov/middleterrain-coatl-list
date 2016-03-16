@@ -73,10 +73,10 @@ namespace db_code_test
 			// table with set items
 			var table = destModel.CreateTable ();
 			table.Name = "array_" + container.TableName + "_" + item.TableName;
-			var set_id = new ColumnType (null, "KEY", "// Array identifier");
+			var array_id = new ColumnType (null, "KEY", "// Array identifier");
 			var item_num = new ColumnType(null, "INTEGER", "// order");
 			var set_item = new ColumnType(null, "KEY", "// Array element");
-			table.CreateColumn("set_id", set_id);
+			table.CreateColumn("array_id", array_id);
 			table.CreateColumn("item_num", item_num);
 			table.CreateColumn("item" + "_fk", set_item);
 			// column in container to select a set

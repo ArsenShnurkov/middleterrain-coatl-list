@@ -636,55 +636,55 @@ CREATE TABLE "set_right_permission" (
 );
 
 CREATE TABLE "array_language_notation" (
-    "set_id" INTEGER,
+    "array_id" INTEGER,
     "item_num" DECIMAL,
     "item_fk" INTEGER
 );
 
 CREATE TABLE "array_notes_predcessors_array_obj_which_can_be_commented" (
-    "set_id" INTEGER,
+    "array_id" INTEGER,
     "item_num" DECIMAL,
     "item_fk" INTEGER
 );
 
 CREATE TABLE "array_federal_district_municipal_district" (
-    "set_id" INTEGER,
+    "array_id" INTEGER,
     "item_num" DECIMAL,
     "item_fk" INTEGER
 );
 
 CREATE TABLE "array_country_federal_district" (
-    "set_id" INTEGER,
+    "array_id" INTEGER,
     "item_num" DECIMAL,
     "item_fk" INTEGER
 );
 
 CREATE TABLE "array_country_language" (
-    "set_id" INTEGER,
+    "array_id" INTEGER,
     "item_num" DECIMAL,
     "item_fk" INTEGER
 );
 
 CREATE TABLE "array_company_website" (
-    "set_id" INTEGER,
+    "array_id" INTEGER,
     "item_num" DECIMAL,
     "item_fk" INTEGER
 );
 
 CREATE TABLE "array_office_legal_subject_contact" (
-    "set_id" INTEGER,
+    "array_id" INTEGER,
     "item_num" DECIMAL,
     "item_fk" INTEGER
 );
 
 CREATE TABLE "array_vacancy_requirement" (
-    "set_id" INTEGER,
+    "array_id" INTEGER,
     "item_num" DECIMAL,
     "item_fk" INTEGER
 );
 
 CREATE TABLE "array_vacancy_benefit" (
-    "set_id" INTEGER,
+    "array_id" INTEGER,
     "item_num" DECIMAL,
     "item_fk" INTEGER
 );
