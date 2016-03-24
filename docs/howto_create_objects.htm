@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf8" />
+<title>Как создавать новые объекты</title>
+</head>
+<body>
+
+<table><tr><td style="vertical-align:top;">
+<h1>Как создавать новые объекты</h1>
+</td><td style="vertical-align:top;">
+<br />
+</td></tr></table>
+
+Обычно объекты создаются в "контексте" (это такой типизированный аналог датасета
+из технологии EntityFramework)
+<br />
+затем вызывается метод SaveChanges
+<br />
+И все новые объекты вставляются (а старые - удаляются)
+<br />
+<br />
+вероятно для вставки нескольких связанных объектов потребуется 
+завести локальные переменные
+и сгенерировать на лету скрипт, который получает идентфиикаторы,
+затем вставляет записи, затем возвращает идентификаторы новых записей 
+в программу-клиент БД (то есть в среднюю часть, которая сервер приложений)
+<br />
+<br />
+Вопросы которые у меня есть (и ответы на них точно есть в интернете):
+<br />
+1) как сгенерировать идентификатор в postgresql
+<br />
+является ли этот способ стандартным, учитывая, что переменные есть только в процедурных расширениях SQL
+<br />
+ну, ещё существуют временные таблицы
+<br />
+2) как сгенерировать собственно команды для вставки данных (примеры надо написать)
+<br />
+ну и код для генерации таких команд
+
+<h2>как сгенерировать идентификатор в postgresql</h2>
+CREATE SEQUENCE Test.MySeq START WITH 1 INCREMENT BY 1 ;
+<br />
+это у меня уже есть в коде
+<br />
+SELECT NEXT VALUE FOR Test.MySeq;
+<br />
+<br />
+Как положить идентификатор куда-нибудь?
+<br />
+http://stackoverflow.com/questions/1490942/how-to-declare-a-variable-in-a-postgresql-query
+
+<h3>WITH clause</h3>
+
+???
+
+<h3>DO statement</h3>
+<a href="http://www.postgresql.org/docs/9.0/static/sql-do.html">http://www.postgresql.org/docs/9.0/static/sql-do.html</a>
+<br />
+The DO statement was added in PostgreSQL 9.0
+<br />
+<br />
+<pre><xmp>
+DO $$
+    DECLARE myvar integer = 5;
+BEGIN
+    CREATE TEMP TABLE tmp_table ON COMMIT DROP AS
+        -- put here your query with variables:
+        SELECT * 
+        FROM yourtable
+        WHERE id = myvar;
+END $$;
+
+SELECT * FROM tmp_table;
+</xmp></pre>
+
+
+
+
+</body>
+</html>
