@@ -39,6 +39,10 @@
 <br />
 ну и код для генерации таких команд
 
+<h3>Связанные записи</h3>
+http://stackoverflow.com/questions/1997998/insert-data-into-tables-linked-by-foreign-key
+
+
 <h2>как сгенерировать идентификатор в postgresql</h2>
 CREATE SEQUENCE Test.MySeq START WITH 1 INCREMENT BY 1 ;
 <br />
@@ -51,9 +55,39 @@ SELECT NEXT VALUE FOR Test.MySeq;
 <br />
 http://stackoverflow.com/questions/1490942/how-to-declare-a-variable-in-a-postgresql-query
 
+<h3>RETURNING clause</h3>
+<a href="http://www.postgresql.org/docs/9.5/static/sql-insert.html">http://www.postgresql.org/docs/9.5/static/sql-insert.html</a>
+<br />
+The optional RETURNING clause causes INSERT
+to compute and return value(s) based on each row actually inserted
+(or updated, if an ON CONFLICT DO UPDATE clause was used).
+<br />
+This is primarily useful for obtaining values that were supplied by defaults, such as a serial sequence number.
+<br />
+If the INSERT command contains a RETURNING clause,
+the result will be similar to that of a SELECT statement containing the columns and values
+defined in the RETURNING list, computed over the row(s) inserted or updated by the command.
+<br />
+<br />
+RETURNING clause is a PostgreSQL extension,
+as is the ability to use WITH with INSERT,
+and the ability to specify an alternative action with ON CONFLICT.
+
 <h3>WITH clause</h3>
 
-???
+http://www.postgresql.org/docs/9.5/static/queries-with.html
+<br />
+<br />
+http://stackoverflow.com/questions/10471757/insert-rows-into-multiple-tables-in-a-single-query-selecting-from-an-involved-t
+<br />
+<br />
+http://stackoverflow.com/questions/20561254/insert-data-in-3-tables-at-a-time-using-postgres
+<br />
+<br />
+http://stackoverflow.com/questions/25153850/inserting-a-row-and-related-rows-with-autoincrement-primary-key-together
+<br />
+<br />
+
 
 <h3>DO statement</h3>
 <a href="http://www.postgresql.org/docs/9.0/static/sql-do.html">http://www.postgresql.org/docs/9.0/static/sql-do.html</a>
@@ -76,6 +110,11 @@ SELECT * FROM tmp_table;
 </xmp></pre>
 
 
+
+<h3>triggers?</h3>
+to insert into multiple tables is a) use two inserts to insert the same data
+into the seperate tables or b) use triggers on the first table to update/insert data
+to the second table when any of the relevant fields in the first table are inserted/updated.
 
 
 </body>
